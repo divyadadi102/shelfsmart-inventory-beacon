@@ -10,10 +10,15 @@ import { useState } from "react";
 import { format } from "date-fns";
 import Navigation from "@/components/Navigation";
 
+type DateRange = {
+  from: Date | undefined;
+  to: Date | undefined;
+};
+
 const Dashboard = () => {
-  const [dateRange, setDateRange] = useState<{ from: Date | undefined; to: Date | undefined }>({
-    from: new Date(2024, 0, 20),
-    to: new Date(2024, 0, 27)
+  const [dateRange, setDateRange] = useState<DateRange>({
+    from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    to: new Date()
   });
 
   const [predictionPeriod, setPredictionPeriod] = useState<'today' | 'tomorrow' | 'nextWeek'>('today');
@@ -182,6 +187,15 @@ const Dashboard = () => {
       case 'tomorrow': return "Tomorrow's Hourly Forecast";
       case 'nextWeek': return "Daily Sales Forecast";
       default: return "Sales Forecast";
+    }
+  };
+
+  const handleDateRangeChange = (range: DateRange | undefined) => {
+    if (range?.from) {
+      setDateRange({
+        from: range.from,
+        to: range.to || range.from
+      });
     }
   };
 
@@ -425,20 +439,28 @@ const Dashboard = () => {
             
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="flex items-center space-x-2">
-                  <CalendarIcon className="w-4 h-4" />
-                  <span>
-                    {dateRange.from && dateRange.to
-                      ? `${format(dateRange.from, "MMM dd")} - ${format(dateRange.to, "MMM dd")}`
-                      : "Select date range"}
-                  </span>
+                <Button variant="outline" className="justify-start text-left font-normal">
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {dateRange.from ? (
+                    dateRange.to && dateRange.from.getTime() !== dateRange.to.getTime() ? (
+                      <>
+                        {format(dateRange.from, "LLL dd, y")} - {format(dateRange.to, "LLL dd, y")}
+                      </>
+                    ) : (
+                      format(dateRange.from, "LLL dd, y")
+                    )
+                  ) : (
+                    <span>Pick a date range</span>
+                  )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="end">
+              <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
+                  initialFocus
                   mode="range"
-                  selected={dateRange}
-                  onSelect={(range) => setDateRange(range || { from: undefined, to: undefined })}
+                  defaultMonth={dateRange.from}
+                  selected={{ from: dateRange.from, to: dateRange.to }}
+                  onSelect={handleDateRangeChange}
                   numberOfMonths={2}
                 />
               </PopoverContent>

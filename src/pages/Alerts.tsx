@@ -20,6 +20,7 @@ interface Product {
 const Alerts = () => {
   const { toast } = useToast();
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedStatus, setSelectedStatus] = useState<'all' | 'critical' | 'low' | 'safe'>('all');
 
   const products: Product[] = [
     { id: '1', name: 'Milk', category: 'Dairy', remaining: 8, status: 'critical', lastUpdated: '2 hours ago' },
@@ -60,10 +61,12 @@ const Alerts = () => {
     return statusOrder[a.status] - statusOrder[b.status];
   });
 
-  // Filter products by category
-  const filteredProducts = selectedCategory === "all" 
-    ? sortedProducts 
-    : sortedProducts.filter(product => product.category.toLowerCase() === selectedCategory);
+  // Filter products by category and status
+  const filteredProducts = sortedProducts.filter(product => {
+    const categoryMatch = selectedCategory === "all" || product.category.toLowerCase() === selectedCategory;
+    const statusMatch = selectedStatus === 'all' || product.status === selectedStatus;
+    return categoryMatch && statusMatch;
+  });
 
   const criticalCount = products.filter(p => p.status === 'critical').length;
   const lowCount = products.filter(p => p.status === 'low').length;
@@ -74,6 +77,10 @@ const Alerts = () => {
       title: "Export started",
       description: "Your alerts report is being generated and will download shortly.",
     });
+  };
+
+  const handleStatusFilter = (status: 'all' | 'critical' | 'low' | 'safe') => {
+    setSelectedStatus(status);
   };
 
   return (
@@ -88,7 +95,12 @@ const Alerts = () => {
 
         {/* Summary Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <Card className="shadow-lg">
+          <Card 
+            className={`shadow-lg cursor-pointer transition-all hover:shadow-xl ${
+              selectedStatus === 'critical' ? 'ring-2 ring-red-500' : ''
+            }`}
+            onClick={() => handleStatusFilter('critical')}
+          >
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between">
                 <span className="text-lg">Critical Items</span>
@@ -101,7 +113,12 @@ const Alerts = () => {
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg">
+          <Card 
+            className={`shadow-lg cursor-pointer transition-all hover:shadow-xl ${
+              selectedStatus === 'low' ? 'ring-2 ring-orange-500' : ''
+            }`}
+            onClick={() => handleStatusFilter('low')}
+          >
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between">
                 <span className="text-lg">Low Stock</span>
@@ -114,7 +131,12 @@ const Alerts = () => {
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg">
+          <Card 
+            className={`shadow-lg cursor-pointer transition-all hover:shadow-xl ${
+              selectedStatus === 'safe' ? 'ring-2 ring-green-500' : ''
+            }`}
+            onClick={() => handleStatusFilter('safe')}
+          >
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between">
                 <span className="text-lg">Safe Stock</span>
@@ -130,22 +152,35 @@ const Alerts = () => {
 
         {/* Filters and Export */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <div className="flex items-center space-x-2">
-            <Filter className="w-5 h-5 text-gray-600" />
-            <span className="text-sm font-medium text-gray-700">Filter by Category:</span>
-            <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
-              <TabsList className="bg-white">
-                {categories.map((category) => (
-                  <TabsTrigger 
-                    key={category} 
-                    value={category}
-                    className="capitalize"
-                  >
-                    {category}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <Filter className="w-5 h-5 text-gray-600" />
+              <span className="text-sm font-medium text-gray-700">Filter by Category:</span>
+              <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
+                <TabsList className="bg-white">
+                  {categories.map((category) => (
+                    <TabsTrigger 
+                      key={category} 
+                      value={category}
+                      className="capitalize"
+                    >
+                      {category}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+            </div>
+            
+            {selectedStatus !== 'all' && (
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => handleStatusFilter('all')}
+                className="text-gray-600"
+              >
+                Clear Status Filter
+              </Button>
+            )}
           </div>
 
           <Button 
@@ -166,9 +201,13 @@ const Alerts = () => {
               <span>Product Alert Status</span>
             </CardTitle>
             <CardDescription>
-              {selectedCategory === "all" 
+              {selectedCategory === "all" && selectedStatus === 'all'
                 ? `Showing all ${filteredProducts.length} products` 
-                : `Showing ${filteredProducts.length} products in ${selectedCategory} category`
+                : `Showing ${filteredProducts.length} products ${
+                    selectedCategory !== "all" ? `in ${selectedCategory} category` : ''
+                  } ${
+                    selectedStatus !== 'all' ? `with ${selectedStatus} status` : ''
+                  }`.trim()
               }
             </CardDescription>
           </CardHeader>
@@ -205,7 +244,7 @@ const Alerts = () => {
             {filteredProducts.length === 0 && (
               <div className="text-center py-12">
                 <Package className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No products found in this category</p>
+                <p className="text-gray-600">No products found with the selected filters</p>
               </div>
             )}
           </CardContent>

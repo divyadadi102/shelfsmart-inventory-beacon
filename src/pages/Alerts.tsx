@@ -1,12 +1,13 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertTriangle, Package, Download, Filter } from "lucide-react";
+import { AlertTriangle, Package, Download, Filter, Edit, Upload } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useToast } from "@/hooks/use-toast";
+import ProductEditDialog from "@/components/ProductEditDialog";
+import BulkUploadDialog from "@/components/BulkUploadDialog";
 
 interface Product {
   id: string;
@@ -21,8 +22,11 @@ const Alerts = () => {
   const { toast } = useToast();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedStatus, setSelectedStatus] = useState<'all' | 'critical' | 'low' | 'safe'>('all');
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const products: Product[] = [
+  const [products, setProducts] = useState<Product[]>([
     { id: '1', name: 'Milk', category: 'Dairy', remaining: 8, status: 'critical', lastUpdated: '2 hours ago' },
     { id: '2', name: 'Bread', category: 'Bakery', remaining: 12, status: 'critical', lastUpdated: '1 hour ago' },
     { id: '3', name: 'Eggs', category: 'Dairy', remaining: 15, status: 'low', lastUpdated: '30 minutes ago' },
@@ -33,7 +37,7 @@ const Alerts = () => {
     { id: '8', name: 'Apples', category: 'Fruits', remaining: 52, status: 'safe', lastUpdated: '1 hour ago' },
     { id: '9', name: 'Rice', category: 'Grains', remaining: 78, status: 'safe', lastUpdated: '4 hours ago' },
     { id: '10', name: 'Pasta', category: 'Grains', remaining: 95, status: 'safe', lastUpdated: '2 hours ago' },
-  ];
+  ]);
 
   const categories = ["all", "dairy", "fruits", "vegetables", "beverages", "snacks", "bakery", "grains"];
 
@@ -53,6 +57,49 @@ const Alerts = () => {
       case 'safe': return '🟢';
       default: return '⚪';
     }
+  };
+
+  const determineStatus = (remaining: number): 'critical' | 'low' | 'safe' => {
+    if (remaining <= 10) return 'critical';
+    if (remaining <= 25) return 'low';
+    return 'safe';
+  };
+
+  const handleProductEdit = (product: Product) => {
+    setSelectedProduct(product);
+    setEditDialogOpen(true);
+  };
+
+  const handleSaveProduct = (productId: string, newCount: number) => {
+    setProducts(prevProducts => 
+      prevProducts.map(product => 
+        product.id === productId 
+          ? { 
+              ...product, 
+              remaining: newCount, 
+              status: determineStatus(newCount),
+              lastUpdated: 'just now'
+            }
+          : product
+      )
+    );
+  };
+
+  const handleBulkUpload = (file: File) => {
+    console.log('Processing bulk upload:', file.name);
+    // Here you would typically parse the CSV/Excel file
+    // For demo purposes, we'll just update a few products
+    setProducts(prevProducts => 
+      prevProducts.map(product => {
+        if (product.name === 'Milk') {
+          return { ...product, remaining: 50, status: 'safe', lastUpdated: 'just now' };
+        }
+        if (product.name === 'Bread') {
+          return { ...product, remaining: 30, status: 'low', lastUpdated: 'just now' };
+        }
+        return product;
+      })
+    );
   };
 
   // Sort products by status priority (critical first, then low, then safe)
@@ -150,7 +197,7 @@ const Alerts = () => {
           </Card>
         </div>
 
-        {/* Filters and Export */}
+        {/* Filters and Actions */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
@@ -183,14 +230,25 @@ const Alerts = () => {
             )}
           </div>
 
-          <Button 
-            onClick={handleExport}
-            variant="outline" 
-            className="flex items-center space-x-2"
-          >
-            <Download className="w-4 h-4" />
-            <span>Export Alerts</span>
-          </Button>
+          <div className="flex space-x-2">
+            <Button 
+              onClick={() => setUploadDialogOpen(true)}
+              variant="outline" 
+              className="flex items-center space-x-2"
+            >
+              <Upload className="w-4 h-4" />
+              <span>Bulk Update</span>
+            </Button>
+            
+            <Button 
+              onClick={handleExport}
+              variant="outline" 
+              className="flex items-center space-x-2"
+            >
+              <Download className="w-4 h-4" />
+              <span>Export Alerts</span>
+            </Button>
+          </div>
         </div>
 
         {/* Product Alert Table */}
@@ -236,6 +294,16 @@ const Alerts = () => {
                     >
                       {product.status}
                     </Badge>
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleProductEdit(product)}
+                      className="flex items-center space-x-1"
+                    >
+                      <Edit className="w-3 h-3" />
+                      <span>Edit</span>
+                    </Button>
                   </div>
                 </div>
               ))}
@@ -250,6 +318,19 @@ const Alerts = () => {
           </CardContent>
         </Card>
       </div>
+
+      <ProductEditDialog
+        product={selectedProduct}
+        open={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+        onSave={handleSaveProduct}
+      />
+
+      <BulkUploadDialog
+        open={uploadDialogOpen}
+        onOpenChange={setUploadDialogOpen}
+        onUpload={handleBulkUpload}
+      />
     </div>
   );
 };

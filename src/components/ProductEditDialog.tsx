@@ -23,38 +23,50 @@ interface ProductEditDialogProps {
 }
 
 const ProductEditDialog = ({ product, open, onOpenChange, onSave }: ProductEditDialogProps) => {
-  const [newCount, setNewCount] = useState(product?.remaining || 0);
+  const [addQuantity, setAddQuantity] = useState(0);
   const { toast } = useToast();
 
   const handleSave = () => {
     if (!product) return;
     
-    if (newCount < 0) {
+    if (addQuantity < 0) {
       toast({
         title: "Invalid quantity",
-        description: "Quantity cannot be negative.",
+        description: "Added quantity cannot be negative.",
         variant: "destructive"
       });
       return;
     }
 
-    onSave(product.id, newCount);
+    const newTotalCount = product.remaining + addQuantity;
+    onSave(product.id, newTotalCount);
     onOpenChange(false);
+    setAddQuantity(0); // Reset the add quantity field
     toast({
       title: "Inventory updated",
-      description: `${product.name} inventory updated to ${newCount} units.`,
+      description: `${product.name} inventory updated. Added ${addQuantity} units. New total: ${newTotalCount} units.`,
     });
+  };
+
+  // Reset addQuantity when dialog opens/closes
+  const handleOpenChange = (newOpen: boolean) => {
+    if (!newOpen) {
+      setAddQuantity(0);
+    }
+    onOpenChange(newOpen);
   };
 
   if (!product) return null;
 
+  const newTotal = product.remaining + addQuantity;
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Inventory</DialogTitle>
+          <DialogTitle>Add Inventory</DialogTitle>
           <DialogDescription>
-            Update the inventory count for {product.name}
+            Add more stock to {product.name}
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -82,7 +94,7 @@ const ProductEditDialog = ({ product, open, onOpenChange, onSave }: ProductEditD
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="current-count" className="text-right">
-              Current
+              Current Stock
             </Label>
             <Input
               id="current-count"
@@ -92,24 +104,35 @@ const ProductEditDialog = ({ product, open, onOpenChange, onSave }: ProductEditD
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="new-count" className="text-right">
-              New Count
+            <Label htmlFor="add-quantity" className="text-right">
+              Add Quantity
             </Label>
             <Input
-              id="new-count"
+              id="add-quantity"
               type="number"
-              value={newCount}
-              onChange={(e) => setNewCount(Number(e.target.value))}
+              value={addQuantity}
+              onChange={(e) => setAddQuantity(Number(e.target.value))}
               className="col-span-3"
               min="0"
+              placeholder="Enter quantity to add"
             />
           </div>
+          {addQuantity > 0 && (
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label className="text-right text-green-600 font-medium">
+                New Total
+              </Label>
+              <div className="col-span-3 px-3 py-2 bg-green-50 border border-green-200 rounded-md text-green-700 font-medium">
+                {newTotal} units
+              </div>
+            </div>
+          )}
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button variant="outline" onClick={() => handleOpenChange(false)}>
             Cancel
           </Button>
-          <Button onClick={handleSave}>Save Changes</Button>
+          <Button onClick={handleSave}>Add Stock</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -237,11 +237,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Inventory Recommendations Section */}
-        <div className="mb-8">
-          <InventoryRecommendations />
-        </div>
-
         {/* Today's Forecasts Section */}
         <div className="mb-12">
           <div className="flex items-center space-x-2 mb-6">
@@ -435,7 +430,12 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Past Performance Section */}
+        {/* Inventory Recommendations Section - moved after forecasts */}
+        <div className="mb-12">
+          <InventoryRecommendations />
+        </div>
+
+        {/* Past Performance Section - moved to bottom */}
         <div>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-2">

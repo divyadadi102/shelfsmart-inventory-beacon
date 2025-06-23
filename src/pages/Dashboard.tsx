@@ -9,6 +9,7 @@ import { TrendingUp, Users, DollarSign, Package, Sun, CloudRain, Calendar as Cal
 import { useState } from "react";
 import { format } from "date-fns";
 import Navigation from "@/components/Navigation";
+import InventoryRecommendations from "@/components/InventoryRecommendations";
 
 type DateRange = {
   from: Date | undefined;
@@ -234,6 +235,11 @@ const Dashboard = () => {
               <span>Next Week's Forecast</span>
             </Button>
           </div>
+        </div>
+
+        {/* Inventory Recommendations Section */}
+        <div className="mb-8">
+          <InventoryRecommendations />
         </div>
 
         {/* Today's Forecasts Section */}

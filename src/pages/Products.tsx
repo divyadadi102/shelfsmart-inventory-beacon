@@ -34,6 +34,7 @@ const Products = () => {
   const [editProductOpen, setEditProductOpen] = useState(false);
   const [csvUploadOpen, setCsvUploadOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const [categories, setCategories] = useState<Category[]>([
     { id: '1', name: 'Dairy', description: 'Milk, cheese, yogurt products' },
@@ -137,6 +138,11 @@ const Products = () => {
     setEditProductOpen(true);
   };
 
+  // Filter products based on selected category
+  const filteredProducts = selectedCategory 
+    ? products.filter(p => p.categoryId === selectedCategory)
+    : products;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
@@ -163,7 +169,7 @@ const Products = () => {
           </Button>
         </div>
 
-        {/* Categories Overview */}
+        {/* Category Filter Buttons */}
         <Card className="shadow-lg mb-8">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
@@ -171,19 +177,31 @@ const Products = () => {
               <span>Categories</span>
             </CardTitle>
             <CardDescription>
-              Manage product categories ({categories.length} total)
+              Filter products by category
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="flex flex-wrap gap-3">
+              <Button
+                variant={selectedCategory === null ? "default" : "outline"}
+                onClick={() => setSelectedCategory(null)}
+                className="h-16 px-4 flex flex-col items-center justify-center"
+              >
+                <span className="font-medium">All</span>
+                <span className="text-sm text-muted-foreground">{products.length} products</span>
+              </Button>
               {categories.map((category) => {
                 const categoryProducts = products.filter(p => p.categoryId === category.id);
                 return (
-                  <div key={category.id} className="p-4 bg-white border rounded-lg">
-                    <h3 className="font-medium text-gray-900 mb-1">{category.name}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{category.description}</p>
-                    <p className="text-sm font-medium text-blue-600">{categoryProducts.length} products</p>
-                  </div>
+                  <Button
+                    key={category.id}
+                    variant={selectedCategory === category.id ? "default" : "outline"}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className="h-16 px-4 flex flex-col items-center justify-center"
+                  >
+                    <span className="font-medium">{category.name}</span>
+                    <span className="text-sm text-muted-foreground">{categoryProducts.length} products</span>
+                  </Button>
                 );
               })}
             </div>
@@ -198,12 +216,15 @@ const Products = () => {
               <span>Products Inventory</span>
             </CardTitle>
             <CardDescription>
-              All products in your inventory ({products.length} total)
+              {selectedCategory 
+                ? `${filteredProducts.length} products in ${categories.find(c => c.id === selectedCategory)?.name}`
+                : `All products in your inventory (${products.length} total)`
+              }
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <div key={product.id} className="flex items-center justify-between p-4 bg-white border rounded-lg hover:shadow-md transition-shadow">
                   <div className="flex items-center space-x-4">
                     <div>
@@ -246,10 +267,15 @@ const Products = () => {
               ))}
             </div>
 
-            {products.length === 0 && (
+            {filteredProducts.length === 0 && (
               <div className="text-center py-12">
                 <Package className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No products found. Add your first product to get started.</p>
+                <p className="text-gray-600">
+                  {selectedCategory 
+                    ? `No products found in ${categories.find(c => c.id === selectedCategory)?.name} category.`
+                    : "No products found. Add your first product to get started."
+                  }
+                </p>
               </div>
             )}
           </CardContent>

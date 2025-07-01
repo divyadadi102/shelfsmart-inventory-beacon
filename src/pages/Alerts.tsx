@@ -1,13 +1,8 @@
-import { useState } from "react";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertTriangle, Package, Download, Filter, Edit, Upload } from "lucide-react";
+import { AlertTriangle, Package } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import { useToast } from "@/hooks/use-toast";
-import ProductEditDialog from "@/components/ProductEditDialog";
-import BulkUploadDialog from "@/components/BulkUploadDialog";
 
 interface Product {
   id: string;
@@ -19,27 +14,14 @@ interface Product {
 }
 
 const Alerts = () => {
-  const { toast } = useToast();
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedStatus, setSelectedStatus] = useState<'all' | 'critical' | 'low' | 'safe'>('all');
-  const [editDialogOpen, setEditDialogOpen] = useState(false);
-  const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
-  const [products, setProducts] = useState<Product[]>([
+  const products: Product[] = [
     { id: '1', name: 'Milk', category: 'Dairy', remaining: 8, status: 'critical', lastUpdated: '2 hours ago' },
     { id: '2', name: 'Bread', category: 'Bakery', remaining: 12, status: 'critical', lastUpdated: '1 hour ago' },
     { id: '3', name: 'Eggs', category: 'Dairy', remaining: 15, status: 'low', lastUpdated: '30 minutes ago' },
     { id: '4', name: 'Yogurt', category: 'Dairy', remaining: 18, status: 'low', lastUpdated: '1 hour ago' },
     { id: '5', name: 'Bananas', category: 'Fruits', remaining: 22, status: 'low', lastUpdated: '45 minutes ago' },
     { id: '6', name: 'Chips', category: 'Snacks', remaining: 25, status: 'low', lastUpdated: '2 hours ago' },
-    { id: '7', name: 'Cheese', category: 'Dairy', remaining: 45, status: 'safe', lastUpdated: '3 hours ago' },
-    { id: '8', name: 'Apples', category: 'Fruits', remaining: 52, status: 'safe', lastUpdated: '1 hour ago' },
-    { id: '9', name: 'Rice', category: 'Grains', remaining: 78, status: 'safe', lastUpdated: '4 hours ago' },
-    { id: '10', name: 'Pasta', category: 'Grains', remaining: 95, status: 'safe', lastUpdated: '2 hours ago' },
-  ]);
-
-  const categories = ["all", "dairy", "fruits", "vegetables", "beverages", "snacks", "bakery", "grains"];
+  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -59,76 +41,14 @@ const Alerts = () => {
     }
   };
 
-  const determineStatus = (remaining: number): 'critical' | 'low' | 'safe' => {
-    if (remaining <= 10) return 'critical';
-    if (remaining <= 25) return 'low';
-    return 'safe';
-  };
-
-  const handleProductEdit = (product: Product) => {
-    setSelectedProduct(product);
-    setEditDialogOpen(true);
-  };
-
-  const handleSaveProduct = (productId: string, newCount: number) => {
-    setProducts(prevProducts => 
-      prevProducts.map(product => 
-        product.id === productId 
-          ? { 
-              ...product, 
-              remaining: newCount, 
-              status: determineStatus(newCount),
-              lastUpdated: 'just now'
-            }
-          : product
-      )
-    );
-  };
-
-  const handleBulkUpload = (file: File) => {
-    console.log('Processing bulk upload:', file.name);
-    // Here you would typically parse the CSV/Excel file
-    // For demo purposes, we'll just update a few products
-    setProducts(prevProducts => 
-      prevProducts.map(product => {
-        if (product.name === 'Milk') {
-          return { ...product, remaining: 50, status: 'safe', lastUpdated: 'just now' };
-        }
-        if (product.name === 'Bread') {
-          return { ...product, remaining: 30, status: 'low', lastUpdated: 'just now' };
-        }
-        return product;
-      })
-    );
-  };
-
   // Sort products by status priority (critical first, then low, then safe)
   const sortedProducts = [...products].sort((a, b) => {
     const statusOrder = { critical: 0, low: 1, safe: 2 };
     return statusOrder[a.status] - statusOrder[b.status];
   });
 
-  // Filter products by category and status
-  const filteredProducts = sortedProducts.filter(product => {
-    const categoryMatch = selectedCategory === "all" || product.category.toLowerCase() === selectedCategory;
-    const statusMatch = selectedStatus === 'all' || product.status === selectedStatus;
-    return categoryMatch && statusMatch;
-  });
-
   const criticalCount = products.filter(p => p.status === 'critical').length;
   const lowCount = products.filter(p => p.status === 'low').length;
-  const safeCount = products.filter(p => p.status === 'safe').length;
-
-  const handleExport = () => {
-    toast({
-      title: "Export started",
-      description: "Your alerts report is being generated and will download shortly.",
-    });
-  };
-
-  const handleStatusFilter = (status: 'all' | 'critical' | 'low' | 'safe') => {
-    setSelectedStatus(status);
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -141,13 +61,8 @@ const Alerts = () => {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <Card 
-            className={`shadow-lg cursor-pointer transition-all hover:shadow-xl ${
-              selectedStatus === 'critical' ? 'ring-2 ring-red-500' : ''
-            }`}
-            onClick={() => handleStatusFilter('critical')}
-          >
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <Card className="shadow-lg">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between">
                 <span className="text-lg">Critical Items</span>
@@ -160,12 +75,7 @@ const Alerts = () => {
             </CardContent>
           </Card>
 
-          <Card 
-            className={`shadow-lg cursor-pointer transition-all hover:shadow-xl ${
-              selectedStatus === 'low' ? 'ring-2 ring-orange-500' : ''
-            }`}
-            onClick={() => handleStatusFilter('low')}
-          >
+          <Card className="shadow-lg">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between">
                 <span className="text-lg">Low Stock</span>
@@ -177,78 +87,6 @@ const Alerts = () => {
               <p className="text-sm text-gray-600">Reorder recommended</p>
             </CardContent>
           </Card>
-
-          <Card 
-            className={`shadow-lg cursor-pointer transition-all hover:shadow-xl ${
-              selectedStatus === 'safe' ? 'ring-2 ring-green-500' : ''
-            }`}
-            onClick={() => handleStatusFilter('safe')}
-          >
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center justify-between">
-                <span className="text-lg">Safe Stock</span>
-                <span className="text-2xl">🟢</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-green-600">{safeCount}</p>
-              <p className="text-sm text-gray-600">Adequate levels</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Filters and Actions */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <Filter className="w-5 h-5 text-gray-600" />
-              <span className="text-sm font-medium text-gray-700">Filter by Category:</span>
-              <Tabs value={selectedCategory} onValueChange={setSelectedCategory}>
-                <TabsList className="bg-white">
-                  {categories.map((category) => (
-                    <TabsTrigger 
-                      key={category} 
-                      value={category}
-                      className="capitalize"
-                    >
-                      {category}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-              </Tabs>
-            </div>
-            
-            {selectedStatus !== 'all' && (
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => handleStatusFilter('all')}
-                className="text-gray-600"
-              >
-                Clear Status Filter
-              </Button>
-            )}
-          </div>
-
-          <div className="flex space-x-2">
-            <Button 
-              onClick={() => setUploadDialogOpen(true)}
-              variant="outline" 
-              className="flex items-center space-x-2"
-            >
-              <Upload className="w-4 h-4" />
-              <span>Bulk Update</span>
-            </Button>
-            
-            <Button 
-              onClick={handleExport}
-              variant="outline" 
-              className="flex items-center space-x-2"
-            >
-              <Download className="w-4 h-4" />
-              <span>Export Alerts</span>
-            </Button>
-          </div>
         </div>
 
         {/* Product Alert Table */}
@@ -259,19 +97,12 @@ const Alerts = () => {
               <span>Product Alert Status</span>
             </CardTitle>
             <CardDescription>
-              {selectedCategory === "all" && selectedStatus === 'all'
-                ? `Showing all ${filteredProducts.length} products` 
-                : `Showing ${filteredProducts.length} products ${
-                    selectedCategory !== "all" ? `in ${selectedCategory} category` : ''
-                  } ${
-                    selectedStatus !== 'all' ? `with ${selectedStatus} status` : ''
-                  }`.trim()
-              }
+              Showing {sortedProducts.length} products with alerts
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {filteredProducts.map((product) => (
+              {sortedProducts.map((product) => (
                 <div key={product.id} className="flex items-center justify-between p-4 bg-white border rounded-lg hover:shadow-md transition-shadow">
                   <div className="flex items-center space-x-4">
                     <div className="flex items-center space-x-2">
@@ -294,43 +125,20 @@ const Alerts = () => {
                     >
                       {product.status}
                     </Badge>
-
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleProductEdit(product)}
-                      className="flex items-center space-x-1"
-                    >
-                      <Edit className="w-3 h-3" />
-                      <span>Edit</span>
-                    </Button>
                   </div>
                 </div>
               ))}
             </div>
 
-            {filteredProducts.length === 0 && (
+            {sortedProducts.length === 0 && (
               <div className="text-center py-12">
                 <Package className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No products found with the selected filters</p>
+                <p className="text-gray-600">No alerts at this time</p>
               </div>
             )}
           </CardContent>
         </Card>
       </div>
-
-      <ProductEditDialog
-        product={selectedProduct}
-        open={editDialogOpen}
-        onOpenChange={setEditDialogOpen}
-        onSave={handleSaveProduct}
-      />
-
-      <BulkUploadDialog
-        open={uploadDialogOpen}
-        onOpenChange={setUploadDialogOpen}
-        onUpload={handleBulkUpload}
-      />
     </div>
   );
 };

@@ -6,27 +6,31 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-interface ProductAddDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  categories: Array<{ id: string; name: string }>;
-  onAdd: (name: string, categoryId: string, quantity: number, minStock: number) => void;
+interface Category {
+  id: string;
+  name: string;
+  description?: string;
 }
 
-const ProductAddDialog = ({ open, onOpenChange, categories, onAdd }: ProductAddDialogProps) => {
+interface AddProductDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  categories: Category[];
+  onAdd: (name: string, categoryId: string, quantity: number) => void;
+}
+
+const AddProductDialog = ({ open, onOpenChange, categories, onAdd }: AddProductDialogProps) => {
   const [name, setName] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [quantity, setQuantity] = useState(0);
-  const [minStock, setMinStock] = useState(0);
+  const [quantity, setQuantity] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (name.trim() && categoryId) {
-      onAdd(name, categoryId, quantity, minStock);
+    if (name.trim() && categoryId && quantity) {
+      onAdd(name, categoryId, parseInt(quantity));
       setName("");
       setCategoryId("");
-      setQuantity(0);
-      setMinStock(0);
+      setQuantity("");
       onOpenChange(false);
     }
   };
@@ -53,7 +57,7 @@ const ProductAddDialog = ({ open, onOpenChange, categories, onAdd }: ProductAddD
           </div>
           <div className="space-y-2">
             <Label htmlFor="category">Category</Label>
-            <Select value={categoryId} onValueChange={setCategoryId}>
+            <Select value={categoryId} onValueChange={setCategoryId} required>
               <SelectTrigger>
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
@@ -67,30 +71,22 @@ const ProductAddDialog = ({ open, onOpenChange, categories, onAdd }: ProductAddD
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="quantity">Initial Quantity</Label>
+            <Label htmlFor="quantity">Quantity</Label>
             <Input
               id="quantity"
               type="number"
               value={quantity}
-              onChange={(e) => setQuantity(parseInt(e.target.value) || 0)}
+              onChange={(e) => setQuantity(e.target.value)}
+              placeholder="Enter quantity"
               min="0"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="minStock">Minimum Stock Level</Label>
-            <Input
-              id="minStock"
-              type="number"
-              value={minStock}
-              onChange={(e) => setMinStock(parseInt(e.target.value) || 0)}
-              min="0"
+              required
             />
           </div>
           <div className="flex justify-end space-x-2">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button type="submit" disabled={!name.trim() || !categoryId}>
+            <Button type="submit" disabled={!name.trim() || !categoryId || !quantity}>
               Add Product
             </Button>
           </div>
@@ -100,4 +96,4 @@ const ProductAddDialog = ({ open, onOpenChange, categories, onAdd }: ProductAddD
   );
 };
 
-export default ProductAddDialog;
+export default AddProductDialog;

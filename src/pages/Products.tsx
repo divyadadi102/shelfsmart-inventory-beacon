@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Package, Plus, Upload, Edit, Trash2 } from "lucide-react";
+import { Package, Plus, Upload, Edit, Trash2, X } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useToast } from "@/hooks/use-toast";
 import AddCategoryDialog from "@/components/AddCategoryDialog";
@@ -133,6 +132,31 @@ const Products = () => {
     });
   };
 
+  const handleDeleteCategory = (categoryId: string) => {
+    // Check if there are products in this category
+    const categoryProducts = products.filter(p => p.categoryId === categoryId);
+    const categoryName = categories.find(c => c.id === categoryId)?.name;
+    
+    if (categoryProducts.length > 0) {
+      toast({
+        title: "Cannot delete category",
+        description: `${categoryName} has ${categoryProducts.length} products. Remove all products first.`,
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setCategories(categories.filter(c => c.id !== categoryId));
+    if (selectedCategory === categoryId) {
+      setSelectedCategory(null);
+    }
+    
+    toast({
+      title: "Category deleted",
+      description: `${categoryName} category has been removed.`,
+    });
+  };
+
   const openEditDialog = (product: Product) => {
     setSelectedProduct(product);
     setEditProductOpen(true);
@@ -185,23 +209,30 @@ const Products = () => {
               <Button
                 variant={selectedCategory === null ? "default" : "outline"}
                 onClick={() => setSelectedCategory(null)}
-                className="h-16 px-4 flex flex-col items-center justify-center"
+                className="h-12 px-4 flex items-center justify-center"
               >
-                <span className="font-medium">All</span>
-                <span className="text-sm text-muted-foreground">{products.length} products</span>
+                <span className="font-medium">All ({products.length})</span>
               </Button>
               {categories.map((category) => {
                 const categoryProducts = products.filter(p => p.categoryId === category.id);
                 return (
-                  <Button
-                    key={category.id}
-                    variant={selectedCategory === category.id ? "default" : "outline"}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className="h-16 px-4 flex flex-col items-center justify-center"
-                  >
-                    <span className="font-medium">{category.name}</span>
-                    <span className="text-sm text-muted-foreground">{categoryProducts.length} products</span>
-                  </Button>
+                  <div key={category.id} className="relative group">
+                    <Button
+                      variant={selectedCategory === category.id ? "default" : "outline"}
+                      onClick={() => setSelectedCategory(category.id)}
+                      className="h-12 px-4 flex items-center justify-center pr-8"
+                    >
+                      <span className="font-medium">{category.name} ({categoryProducts.length})</span>
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDeleteCategory(category.id)}
+                      className="absolute -top-1 -right-1 h-6 w-6 p-0 bg-red-100 hover:bg-red-200 text-red-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <X className="w-3 h-3" />
+                    </Button>
+                  </div>
                 );
               })}
             </div>

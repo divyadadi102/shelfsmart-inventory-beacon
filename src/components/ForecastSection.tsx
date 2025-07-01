@@ -1,11 +1,9 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { TrendingUp, Users, DollarSign, Package, Star } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { Users, DollarSign, Package, Star } from "lucide-react";
 import { useState } from "react";
-import StockAlertsCard from "./StockAlertsCard";
 import WeatherCard from "./WeatherCard";
 
 type PredictionPeriod = 'today' | 'tomorrow' | 'nextWeek';
@@ -175,47 +173,8 @@ const ForecastSection = () => {
         </Card>
       )}
 
-      {/* First Row: Sales Graph and Best Sellers Forecast */}
-      <div className="grid lg:grid-cols-2 gap-6 mb-6">
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
-              <span>{getHourlyChartTitle()}</span>
-            </CardTitle>
-            <CardDescription>
-              {predictionPeriod === 'nextWeek' ? 'Daily forecast for the upcoming week' : 'Predicted sales throughout the day'}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={currentPrediction.hourlySales}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis />
-                <Tooltip />
-                <Line 
-                  type="monotone" 
-                  dataKey="forecast" 
-                  stroke="#3b82f6" 
-                  strokeWidth={3}
-                  name="Forecast"
-                />
-                {predictionPeriod === 'today' && (
-                  <Line 
-                    type="monotone" 
-                    dataKey="sales" 
-                    stroke="#10b981" 
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                    name="Actual"
-                  />
-                )}
-              </LineChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
+      {/* Top Products Forecast - Full Width */}
+      <div className="mb-6">
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
@@ -227,13 +186,13 @@ const ForecastSection = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={400}>
               <PieChart>
                 <Pie
                   data={currentPrediction.bestSellers}
                   cx="50%"
                   cy="50%"
-                  outerRadius={80}
+                  outerRadius={120}
                   dataKey="expected"
                   label={({ name, expected }) => `${name}: ${expected}`}
                 >
@@ -248,9 +207,8 @@ const ForecastSection = () => {
         </Card>
       </div>
 
-      {/* Second Row: Stock Alerts, Weather, Traffic, and Revenue */}
-      <div className="grid lg:grid-cols-4 gap-6">
-        <StockAlertsCard />
+      {/* Weather, Traffic, and Revenue Cards */}
+      <div className="grid lg:grid-cols-3 gap-6">
         <WeatherCard />
 
         <Card className="shadow-lg">

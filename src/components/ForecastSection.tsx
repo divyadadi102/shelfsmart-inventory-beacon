@@ -1,8 +1,9 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Users, DollarSign, Package, Star } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { Users, DollarSign, Package, Star, Clock, CloudRain, TrendingUp, Percent } from "lucide-react";
 import { useState } from "react";
 import WeatherCard from "./WeatherCard";
 
@@ -11,82 +12,88 @@ type PredictionPeriod = 'today' | 'tomorrow' | 'nextWeek';
 const ForecastSection = () => {
   const [predictionPeriod, setPredictionPeriod] = useState<PredictionPeriod>('today');
 
-  // Mock data for different prediction periods
+  // Mock data for different prediction periods - ALL PRODUCTS
   const predictionData = {
     today: {
-      hourlySales: [
-        { time: '9 AM', sales: 120, forecast: 130 },
-        { time: '10 AM', sales: 180, forecast: 190 },
-        { time: '11 AM', sales: 250, forecast: 260 },
-        { time: '12 PM', sales: 320, forecast: 340 },
-        { time: '1 PM', sales: 290, forecast: 310 },
-        { time: '2 PM', sales: 200, forecast: 210 },
-        { time: '3 PM', sales: 150, forecast: 160 },
-        { time: '4 PM', sales: 220, forecast: 240 },
-        { time: '5 PM', sales: 380, forecast: 420 },
-        { time: '6 PM', sales: 450, forecast: 480 },
-        { time: '7 PM', sales: 320, forecast: 350 },
-        { time: '8 PM', sales: 180, forecast: 190 },
-        { time: '9 PM', sales: 100, forecast: 110 },
-      ],
-      bestSellers: [
+      allProducts: [
         { name: "Milk", expected: 45, color: "#3b82f6" },
         { name: "Bread", expected: 38, color: "#8b5cf6" },
         { name: "Eggs", expected: 32, color: "#10b981" },
         { name: "Chips", expected: 28, color: "#f59e0b" },
         { name: "Bananas", expected: 25, color: "#ef4444" },
         { name: "Rice", expected: 22, color: "#06b6d4" },
+        { name: "Cookies", expected: 18, color: "#84cc16" },
+        { name: "Juice", expected: 15, color: "#f97316" },
+        { name: "Yogurt", expected: 12, color: "#ec4899" },
+        { name: "Cheese", expected: 10, color: "#6366f1" },
+        { name: "Pasta", expected: 8, color: "#14b8a6" },
+        { name: "Crackers", expected: 6, color: "#f59e0b" },
       ],
       expectedTraffic: 284,
-      expectedRevenue: 3450
+      expectedRevenue: 3450,
+      peakHours: [
+        { time: '12 PM', customers: 45 },
+        { time: '5 PM', customers: 52 },
+        { time: '6 PM', customers: 48 },
+        { time: '7 PM', customers: 35 },
+      ],
+      inventoryTurnover: 2.3,
+      profitMargin: 18.5,
+      weatherImpact: '+12%'
     },
     tomorrow: {
-      hourlySales: [
-        { time: '9 AM', sales: 0, forecast: 140 },
-        { time: '10 AM', sales: 0, forecast: 200 },
-        { time: '11 AM', sales: 0, forecast: 280 },
-        { time: '12 PM', sales: 0, forecast: 360 },
-        { time: '1 PM', sales: 0, forecast: 330 },
-        { time: '2 PM', sales: 0, forecast: 220 },
-        { time: '3 PM', sales: 0, forecast: 170 },
-        { time: '4 PM', sales: 0, forecast: 260 },
-        { time: '5 PM', sales: 0, forecast: 400 },
-        { time: '6 PM', sales: 0, forecast: 500 },
-        { time: '7 PM', sales: 0, forecast: 370 },
-        { time: '8 PM', sales: 0, forecast: 200 },
-        { time: '9 PM', sales: 0, forecast: 120 },
-      ],
-      bestSellers: [
+      allProducts: [
         { name: "Milk", expected: 48, color: "#3b82f6" },
         { name: "Bread", expected: 42, color: "#8b5cf6" },
         { name: "Eggs", expected: 35, color: "#10b981" },
         { name: "Rice", expected: 30, color: "#06b6d4" },
         { name: "Chips", expected: 28, color: "#f59e0b" },
         { name: "Bananas", expected: 26, color: "#ef4444" },
+        { name: "Cookies", expected: 20, color: "#84cc16" },
+        { name: "Juice", expected: 17, color: "#f97316" },
+        { name: "Yogurt", expected: 14, color: "#ec4899" },
+        { name: "Cheese", expected: 12, color: "#6366f1" },
+        { name: "Pasta", expected: 10, color: "#14b8a6" },
+        { name: "Crackers", expected: 8, color: "#f59e0b" },
       ],
       expectedTraffic: 315,
-      expectedRevenue: 3820
+      expectedRevenue: 3820,
+      peakHours: [
+        { time: '12 PM', customers: 50 },
+        { time: '5 PM', customers: 58 },
+        { time: '6 PM', customers: 52 },
+        { time: '7 PM', customers: 40 },
+      ],
+      inventoryTurnover: 2.5,
+      profitMargin: 19.2,
+      weatherImpact: '+8%'
     },
     nextWeek: {
-      hourlySales: [
-        { time: 'Mon', sales: 0, forecast: 2800 },
-        { time: 'Tue', sales: 0, forecast: 3200 },
-        { time: 'Wed', sales: 0, forecast: 2900 },
-        { time: 'Thu', sales: 0, forecast: 3500 },
-        { time: 'Fri', sales: 0, forecast: 4200 },
-        { time: 'Sat', sales: 0, forecast: 5100 },
-        { time: 'Sun', sales: 0, forecast: 3800 },
-      ],
-      bestSellers: [
+      allProducts: [
         { name: "Milk", expected: 320, color: "#3b82f6" },
         { name: "Bread", expected: 285, color: "#8b5cf6" },
         { name: "Rice", expected: 245, color: "#06b6d4" },
         { name: "Eggs", expected: 230, color: "#10b981" },
         { name: "Chips", expected: 195, color: "#f59e0b" },
         { name: "Bananas", expected: 180, color: "#ef4444" },
+        { name: "Cookies", expected: 140, color: "#84cc16" },
+        { name: "Juice", expected: 125, color: "#f97316" },
+        { name: "Yogurt", expected: 98, color: "#ec4899" },
+        { name: "Cheese", expected: 85, color: "#6366f1" },
+        { name: "Pasta", expected: 72, color: "#14b8a6" },
+        { name: "Crackers", expected: 58, color: "#f59e0b" },
       ],
       expectedTraffic: 2150,
-      expectedRevenue: 25500
+      expectedRevenue: 25500,
+      peakHours: [
+        { time: 'Fri 5-7 PM', customers: 320 },
+        { time: 'Sat 12-2 PM', customers: 280 },
+        { time: 'Sun 10-12 PM', customers: 245 },
+        { time: 'Wed 6-8 PM', customers: 190 },
+      ],
+      inventoryTurnover: 2.8,
+      profitMargin: 20.1,
+      weatherImpact: '+15%'
     }
   };
 
@@ -98,15 +105,6 @@ const ForecastSection = () => {
       case 'tomorrow': return "Tomorrow's Forecasts";
       case 'nextWeek': return "Next Week's Forecasts";
       default: return "Forecasts";
-    }
-  };
-
-  const getHourlyChartTitle = () => {
-    switch (predictionPeriod) {
-      case 'today': return "Hourly Sales Forecast";
-      case 'tomorrow': return "Tomorrow's Hourly Forecast";
-      case 'nextWeek': return "Daily Sales Forecast";
-      default: return "Sales Forecast";
     }
   };
 
@@ -173,30 +171,30 @@ const ForecastSection = () => {
         </Card>
       )}
 
-      {/* Top Products Forecast - Full Width */}
+      {/* All Products Forecast - Full Width */}
       <div className="mb-6">
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <Package className="w-5 h-5 text-green-600" />
-              <span>Top Products Forecast</span>
+              <span>Complete Product Sales Forecast</span>
             </CardTitle>
             <CardDescription>
-              {predictionPeriod === 'nextWeek' ? 'Expected best sellers for next week' : `Expected best sellers for ${predictionPeriod}`}
+              {predictionPeriod === 'nextWeek' ? 'Expected sales for all products next week' : `Expected sales for all products ${predictionPeriod}`}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={400}>
               <PieChart>
                 <Pie
-                  data={currentPrediction.bestSellers}
+                  data={currentPrediction.allProducts}
                   cx="50%"
                   cy="50%"
                   outerRadius={120}
                   dataKey="expected"
                   label={({ name, expected }) => `${name}: ${expected}`}
                 >
-                  {currentPrediction.bestSellers.map((entry, index) => (
+                  {currentPrediction.allProducts.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
@@ -207,8 +205,8 @@ const ForecastSection = () => {
         </Card>
       </div>
 
-      {/* Weather, Traffic, and Revenue Cards */}
-      <div className="grid lg:grid-cols-3 gap-6">
+      {/* Enhanced Forecast Cards Grid */}
+      <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
         <WeatherCard />
 
         <Card className="shadow-lg">
@@ -247,6 +245,87 @@ const ForecastSection = () => {
               <Badge className="mt-1 bg-green-100 text-green-800 text-xs">
                 {predictionPeriod === 'nextWeek' ? '+22% vs this week' : '+18% vs avg'}
               </Badge>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-lg">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center space-x-2 text-sm">
+              <Percent className="w-4 h-4 text-blue-600" />
+              <span>Profit Margin</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-blue-600 mb-1">{currentPrediction.profitMargin}%</p>
+              <p className="text-xs text-gray-600">expected margin</p>
+              <Badge className="mt-1 bg-blue-100 text-blue-800 text-xs">
+                +2.1% vs last period
+              </Badge>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Additional Forecast Information */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Peak Hours Prediction */}
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Clock className="w-5 h-5 text-orange-600" />
+              <span>Peak Hours Forecast</span>
+            </CardTitle>
+            <CardDescription>
+              When you'll experience highest customer traffic
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={currentPrediction.peakHours}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="customers" fill="#f59e0b" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Additional Metrics */}
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <TrendingUp className="w-5 h-5 text-green-600" />
+              <span>Key Metrics</span>
+            </CardTitle>
+            <CardDescription>
+              Important business indicators for planning
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+              <div>
+                <p className="font-medium text-gray-900">Inventory Turnover Rate</p>
+                <p className="text-sm text-gray-600">How fast products move</p>
+              </div>
+              <div className="text-right">
+                <p className="text-lg font-bold text-green-600">{currentPrediction.inventoryTurnover}x</p>
+                <Badge className="bg-green-100 text-green-800 text-xs">Excellent</Badge>
+              </div>
+            </div>
+            
+            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <div>
+                <p className="font-medium text-gray-900">Weather Impact</p>
+                <p className="text-sm text-gray-600">Effect on sales</p>
+              </div>
+              <div className="text-right">
+                <p className="text-lg font-bold text-blue-600">{currentPrediction.weatherImpact}</p>
+                <Badge className="bg-blue-100 text-blue-800 text-xs">Positive</Badge>
+              </div>
             </div>
           </CardContent>
         </Card>

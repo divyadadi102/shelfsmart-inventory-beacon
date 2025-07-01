@@ -5,14 +5,14 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { TrendingDown, AlertTriangle } from "lucide-react";
 
 const LowSalesProductsSection = () => {
-  // Mock data for products with low sales
+  // Mock data for products with low sales - only showing actual sales
   const lowSalesProducts = [
-    { name: "Cookies", sales: 12, target: 45, category: "Snacks" },
-    { name: "Juice", sales: 18, target: 50, category: "Beverages" },
-    { name: "Yogurt", sales: 22, target: 60, category: "Dairy" },
-    { name: "Crackers", sales: 15, target: 40, category: "Snacks" },
-    { name: "Cheese", sales: 28, target: 70, category: "Dairy" },
-    { name: "Pasta", sales: 8, target: 35, category: "Grains" },
+    { name: "Cookies", sales: 12, remaining: 100, category: "Snacks" },
+    { name: "Juice", sales: 18, remaining: 82, category: "Beverages" },
+    { name: "Yogurt", sales: 22, remaining: 78, category: "Dairy" },
+    { name: "Crackers", sales: 15, remaining: 85, category: "Snacks" },
+    { name: "Cheese", sales: 28, remaining: 72, category: "Dairy" },
+    { name: "Pasta", sales: 8, remaining: 92, category: "Grains" },
   ];
 
   return (
@@ -23,7 +23,7 @@ const LowSalesProductsSection = () => {
           <span>Low Performance Products</span>
         </CardTitle>
         <CardDescription>
-          Products with sales below expected targets - consider promotions or inventory adjustments
+          Products with low sales performance - consider promotions or inventory adjustments
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -35,7 +35,6 @@ const LowSalesProductsSection = () => {
               <YAxis />
               <Tooltip />
               <Bar dataKey="sales" fill="#ef4444" name="Actual Sales" />
-              <Bar dataKey="target" fill="#94a3b8" opacity={0.5} name="Target Sales" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -46,23 +45,23 @@ const LowSalesProductsSection = () => {
             <h3 className="font-semibold text-red-700">Action Required</h3>
           </div>
           {lowSalesProducts.map((product) => {
-            const performance = Math.round((product.sales / product.target) * 100);
+            const unitsLeft = product.remaining - product.sales;
             return (
               <div key={product.name} className="flex items-center justify-between p-3 bg-red-50 border border-red-200 rounded-lg">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-1">
                     <span className="font-medium text-red-900">{product.name}</span>
                     <Badge variant="destructive">
-                      {performance}% of target
+                      {product.category}
                     </Badge>
                   </div>
                   <div className="text-sm text-red-700">
-                    Sales: {product.sales} units • Target: {product.target} units • {product.category}
+                    Sales: {product.sales} units • Remaining: {product.remaining} units
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="text-sm font-medium text-red-900">
-                    -{product.target - product.sales} units behind
+                    -{unitsLeft} units behind
                   </div>
                 </div>
               </div>

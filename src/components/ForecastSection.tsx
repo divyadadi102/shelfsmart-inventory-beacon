@@ -2,8 +2,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
-import { Users, DollarSign, Package, Star, Clock, CloudRain, TrendingUp, Percent } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Users, DollarSign, Package, Star, CloudRain, Percent } from "lucide-react";
 import { useState } from "react";
 import WeatherCard from "./WeatherCard";
 
@@ -31,12 +31,6 @@ const ForecastSection = () => {
       ],
       expectedTraffic: 284,
       expectedRevenue: 3450,
-      peakHours: [
-        { time: '12 PM', customers: 45 },
-        { time: '5 PM', customers: 52 },
-        { time: '6 PM', customers: 48 },
-        { time: '7 PM', customers: 35 },
-      ],
       inventoryTurnover: 2.3,
       profitMargin: 18.5,
       weatherImpact: '+12%'
@@ -58,12 +52,6 @@ const ForecastSection = () => {
       ],
       expectedTraffic: 315,
       expectedRevenue: 3820,
-      peakHours: [
-        { time: '12 PM', customers: 50 },
-        { time: '5 PM', customers: 58 },
-        { time: '6 PM', customers: 52 },
-        { time: '7 PM', customers: 40 },
-      ],
       inventoryTurnover: 2.5,
       profitMargin: 19.2,
       weatherImpact: '+8%'
@@ -85,12 +73,6 @@ const ForecastSection = () => {
       ],
       expectedTraffic: 2150,
       expectedRevenue: 25500,
-      peakHours: [
-        { time: 'Fri 5-7 PM', customers: 320 },
-        { time: 'Sat 12-2 PM', customers: 280 },
-        { time: 'Sun 10-12 PM', customers: 245 },
-        { time: 'Wed 6-8 PM', customers: 190 },
-      ],
       inventoryTurnover: 2.8,
       profitMargin: 20.1,
       weatherImpact: '+15%'
@@ -171,7 +153,7 @@ const ForecastSection = () => {
         </Card>
       )}
 
-      {/* All Products Forecast - Full Width */}
+      {/* All Products Forecast - Bar Chart */}
       <div className="mb-6">
         <Card className="shadow-lg">
           <CardHeader>
@@ -185,28 +167,20 @@ const ForecastSection = () => {
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={400}>
-              <PieChart>
-                <Pie
-                  data={currentPrediction.allProducts}
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={120}
-                  dataKey="expected"
-                  label={({ name, expected }) => `${name}: ${expected}`}
-                >
-                  {currentPrediction.allProducts.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
+              <BarChart data={currentPrediction.allProducts}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
                 <Tooltip />
-              </PieChart>
+                <Bar dataKey="expected" fill="#3b82f6" />
+              </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
 
-      {/* Enhanced Forecast Cards Grid */}
-      <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
+      {/* Forecast Cards Grid - Horizontal Layout */}
+      <div className="grid grid-cols-4 gap-6 mb-6">
         <WeatherCard />
 
         <Card className="shadow-lg">
@@ -263,69 +237,6 @@ const ForecastSection = () => {
               <Badge className="mt-1 bg-blue-100 text-blue-800 text-xs">
                 +2.1% vs last period
               </Badge>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Additional Forecast Information */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Peak Hours Prediction */}
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Clock className="w-5 h-5 text-orange-600" />
-              <span>Peak Hours Forecast</span>
-            </CardTitle>
-            <CardDescription>
-              When you'll experience highest customer traffic
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={currentPrediction.peakHours}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="customers" fill="#f59e0b" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        {/* Additional Metrics */}
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <TrendingUp className="w-5 h-5 text-green-600" />
-              <span>Key Metrics</span>
-            </CardTitle>
-            <CardDescription>
-              Important business indicators for planning
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Inventory Turnover Rate</p>
-                <p className="text-sm text-gray-600">How fast products move</p>
-              </div>
-              <div className="text-right">
-                <p className="text-lg font-bold text-green-600">{currentPrediction.inventoryTurnover}x</p>
-                <Badge className="bg-green-100 text-green-800 text-xs">Excellent</Badge>
-              </div>
-            </div>
-            
-            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-              <div>
-                <p className="font-medium text-gray-900">Weather Impact</p>
-                <p className="text-sm text-gray-600">Effect on sales</p>
-              </div>
-              <div className="text-right">
-                <p className="text-lg font-bold text-blue-600">{currentPrediction.weatherImpact}</p>
-                <Badge className="bg-blue-100 text-blue-800 text-xs">Positive</Badge>
-              </div>
             </div>
           </CardContent>
         </Card>

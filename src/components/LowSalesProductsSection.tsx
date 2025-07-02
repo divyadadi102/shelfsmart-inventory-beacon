@@ -29,10 +29,14 @@ const LowSalesProductsSection = () => {
       <CardContent>
         <div className="mb-6">
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={lowSalesProducts}>
+            <BarChart 
+              data={lowSalesProducts} 
+              layout="horizontal"
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              <XAxis type="number" />
+              <YAxis dataKey="name" type="category" width={60} />
               <Tooltip />
               <Bar dataKey="sales" fill="#ef4444" name="Actual Sales" />
             </BarChart>

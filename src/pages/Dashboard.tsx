@@ -1,8 +1,9 @@
 
 import Navigation from "@/components/Navigation";
 import ForecastSection from "@/components/ForecastSection";
-import PastPerformanceSection from "@/components/PastPerformanceSection";
 import LowSalesProductsSection from "@/components/LowSalesProductsSection";
+import TopSellingProductsSection from "@/components/TopSellingProductsSection";
+import LowPurchaseProductsSection from "@/components/LowPurchaseProductsSection";
 
 const Dashboard = () => {
   return (
@@ -18,13 +19,20 @@ const Dashboard = () => {
         {/* Forecasts Section */}
         <ForecastSection />
 
+        {/* Top Selling Products Section */}
+        <div className="mb-8">
+          <TopSellingProductsSection />
+        </div>
+
+        {/* Low Purchase Products Section */}
+        <div className="mb-8">
+          <LowPurchaseProductsSection />
+        </div>
+
         {/* Low Sales Products Section */}
         <div className="mb-12">
           <LowSalesProductsSection />
         </div>
-
-        {/* Past Performance Section */}
-        <PastPerformanceSection />
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
-
 import { Button } from "@/components/ui/button";
-import { BarChart3, Upload, AlertTriangle, Package, LogOut } from "lucide-react";
+import { BarChart3, Upload, AlertTriangle, Package, LogOut, TrendingUp } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -22,6 +21,7 @@ const Navigation = () => {
     { path: "/upload", label: "Upload", icon: Upload },
     { path: "/alerts", label: "Alerts", icon: AlertTriangle },
     { path: "/products", label: "Products", icon: Package },
+    { path: "/past-sales", label: "Past Sales", icon: TrendingUp },
   ];
 
   return (

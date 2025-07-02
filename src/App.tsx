@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import Upload from "./pages/Upload";
 import Alerts from "./pages/Alerts";
 import Products from "./pages/Products";
+import PastSales from "./pages/PastSales";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/upload" element={<Upload />} />
           <Route path="/alerts" element={<Alerts />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/past-sales" element={<PastSales />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

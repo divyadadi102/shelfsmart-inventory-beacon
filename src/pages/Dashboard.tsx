@@ -3,7 +3,6 @@ import Navigation from "@/components/Navigation";
 import ForecastSection from "@/components/ForecastSection";
 import LowSalesProductsSection from "@/components/LowSalesProductsSection";
 import TopSellingProductsSection from "@/components/TopSellingProductsSection";
-import LowPurchaseProductsSection from "@/components/LowPurchaseProductsSection";
 
 const Dashboard = () => {
   return (
@@ -22,11 +21,6 @@ const Dashboard = () => {
         {/* Top Selling Products Section */}
         <div className="mb-8">
           <TopSellingProductsSection />
-        </div>
-
-        {/* Low Purchase Products Section */}
-        <div className="mb-8">
-          <LowPurchaseProductsSection />
         </div>
 
         {/* Low Sales Products Section */}

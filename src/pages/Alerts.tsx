@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Package } from "lucide-react";
+import { AlertTriangle, Package, Clock } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 interface Product {
@@ -13,6 +12,7 @@ interface Product {
   remaining: number;
   status: 'critical' | 'low' | 'safe';
   lastUpdated: string;
+  dailyConsumption: number; // Added for time calculations
 }
 
 const Alerts = () => {
@@ -20,17 +20,33 @@ const Alerts = () => {
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
 
   const products: Product[] = [
-    { id: '1', name: 'Milk', category: 'Dairy', remaining: 8, status: 'critical', lastUpdated: '2 hours ago' },
-    { id: '2', name: 'Bread', category: 'Bakery', remaining: 12, status: 'critical', lastUpdated: '1 hour ago' },
-    { id: '3', name: 'Eggs', category: 'Dairy', remaining: 15, status: 'low', lastUpdated: '30 minutes ago' },
-    { id: '4', name: 'Yogurt', category: 'Dairy', remaining: 18, status: 'low', lastUpdated: '1 hour ago' },
-    { id: '5', name: 'Bananas', category: 'Fruits', remaining: 22, status: 'low', lastUpdated: '45 minutes ago' },
-    { id: '6', name: 'Chips', category: 'Snacks', remaining: 25, status: 'low', lastUpdated: '2 hours ago' },
-    { id: '7', name: 'Cheese', category: 'Dairy', remaining: 45, status: 'safe', lastUpdated: '3 hours ago' },
-    { id: '8', name: 'Apples', category: 'Fruits', remaining: 52, status: 'safe', lastUpdated: '1 hour ago' },
-    { id: '9', name: 'Cookies', category: 'Snacks', remaining: 38, status: 'safe', lastUpdated: '2 hours ago' },
-    { id: '10', name: 'Pastries', category: 'Bakery', remaining: 30, status: 'safe', lastUpdated: '4 hours ago' },
+    { id: '1', name: 'Milk', category: 'Dairy', remaining: 8, status: 'critical', lastUpdated: '2 hours ago', dailyConsumption: 15 },
+    { id: '2', name: 'Bread', category: 'Bakery', remaining: 12, status: 'critical', lastUpdated: '1 hour ago', dailyConsumption: 10 },
+    { id: '3', name: 'Eggs', category: 'Dairy', remaining: 15, status: 'low', lastUpdated: '30 minutes ago', dailyConsumption: 12 },
+    { id: '4', name: 'Yogurt', category: 'Dairy', remaining: 18, status: 'low', lastUpdated: '1 hour ago', dailyConsumption: 8 },
+    { id: '5', name: 'Bananas', category: 'Fruits', remaining: 22, status: 'low', lastUpdated: '45 minutes ago', dailyConsumption: 6 },
+    { id: '6', name: 'Chips', category: 'Snacks', remaining: 25, status: 'low', lastUpdated: '2 hours ago', dailyConsumption: 7 },
+    { id: '7', name: 'Cheese', category: 'Dairy', remaining: 45, status: 'safe', lastUpdated: '3 hours ago', dailyConsumption: 5 },
+    { id: '8', name: 'Apples', category: 'Fruits', remaining: 52, status: 'safe', lastUpdated: '1 hour ago', dailyConsumption: 8 },
+    { id: '9', name: 'Cookies', category: 'Snacks', remaining: 38, status: 'safe', lastUpdated: '2 hours ago', dailyConsumption: 4 },
+    { id: '10', name: 'Pastries', category: 'Bakery', remaining: 30, status: 'safe', lastUpdated: '4 hours ago', dailyConsumption: 6 },
   ];
+
+  const calculateTimeRemaining = (remaining: number, dailyConsumption: number) => {
+    if (dailyConsumption === 0) return "Unknown";
+    
+    const daysRemaining = remaining / dailyConsumption;
+    
+    if (daysRemaining < 1) {
+      const hoursRemaining = Math.round(daysRemaining * 24);
+      return hoursRemaining <= 1 ? `${hoursRemaining} hour left` : `${hoursRemaining} hours left`;
+    } else if (daysRemaining < 7) {
+      return `${daysRemaining.toFixed(1)} days left`;
+    } else {
+      const weeksRemaining = Math.round(daysRemaining / 7);
+      return `${weeksRemaining} week${weeksRemaining > 1 ? 's' : ''} left`;
+    }
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -48,6 +64,13 @@ const Alerts = () => {
       case 'safe': return '🟢';
       default: return '⚪';
     }
+  };
+
+  const getTimeRemainingColor = (remaining: number, dailyConsumption: number) => {
+    const daysRemaining = remaining / dailyConsumption;
+    if (daysRemaining < 1) return 'text-red-600 font-semibold';
+    if (daysRemaining < 2) return 'text-orange-600 font-medium';
+    return 'text-gray-600';
   };
 
   // Filter products based on selected category and status
@@ -208,6 +231,12 @@ const Alerts = () => {
                       <div>
                         <p className="font-medium text-gray-900">{product.name}</p>
                         <p className="text-sm text-gray-600">{product.category}</p>
+                        <div className="flex items-center space-x-1 mt-1">
+                          <Clock className="w-3 h-3 text-gray-400" />
+                          <p className={`text-xs ${getTimeRemainingColor(product.remaining, product.dailyConsumption)}`}>
+                            {calculateTimeRemaining(product.remaining, product.dailyConsumption)}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -215,6 +244,7 @@ const Alerts = () => {
                   <div className="flex items-center space-x-4">
                     <div className="text-right">
                       <p className="font-medium text-gray-900">{product.remaining} units</p>
+                      <p className="text-sm text-gray-500">Daily use: {product.dailyConsumption}</p>
                       <p className="text-sm text-gray-500">Updated {product.lastUpdated}</p>
                     </div>
                     

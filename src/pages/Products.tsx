@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,8 @@ interface Product {
   categoryId: string;
   categoryName: string;
   quantity: number;
+  costPrice: number;
+  sellingPrice: number;
   status: 'critical' | 'low' | 'safe';
   lastUpdated: string;
 }
@@ -43,12 +46,12 @@ const Products = () => {
   ]);
 
   const [products, setProducts] = useState<Product[]>([
-    { id: '1', name: 'Milk', categoryId: '1', categoryName: 'Dairy', quantity: 8, status: 'critical', lastUpdated: '2 hours ago' },
-    { id: '2', name: 'Bread', categoryId: '3', categoryName: 'Bakery', quantity: 12, status: 'critical', lastUpdated: '1 hour ago' },
-    { id: '3', name: 'Eggs', categoryId: '1', categoryName: 'Dairy', quantity: 15, status: 'low', lastUpdated: '30 minutes ago' },
-    { id: '4', name: 'Bananas', categoryId: '2', categoryName: 'Fruits', quantity: 22, status: 'low', lastUpdated: '45 minutes ago' },
-    { id: '5', name: 'Cheese', categoryId: '1', categoryName: 'Dairy', quantity: 45, status: 'safe', lastUpdated: '3 hours ago' },
-    { id: '6', name: 'Apples', categoryId: '2', categoryName: 'Fruits', quantity: 52, status: 'safe', lastUpdated: '1 hour ago' },
+    { id: '1', name: 'Milk', categoryId: '1', categoryName: 'Dairy', quantity: 8, costPrice: 2.50, sellingPrice: 3.99, status: 'critical', lastUpdated: '2 hours ago' },
+    { id: '2', name: 'Bread', categoryId: '3', categoryName: 'Bakery', quantity: 12, costPrice: 1.20, sellingPrice: 2.49, status: 'critical', lastUpdated: '1 hour ago' },
+    { id: '3', name: 'Eggs', categoryId: '1', categoryName: 'Dairy', quantity: 15, costPrice: 3.00, sellingPrice: 4.99, status: 'low', lastUpdated: '30 minutes ago' },
+    { id: '4', name: 'Bananas', categoryId: '2', categoryName: 'Fruits', quantity: 22, costPrice: 1.50, sellingPrice: 2.99, status: 'low', lastUpdated: '45 minutes ago' },
+    { id: '5', name: 'Cheese', categoryId: '1', categoryName: 'Dairy', quantity: 45, costPrice: 4.00, sellingPrice: 6.99, status: 'safe', lastUpdated: '3 hours ago' },
+    { id: '6', name: 'Apples', categoryId: '2', categoryName: 'Fruits', quantity: 52, costPrice: 2.00, sellingPrice: 3.49, status: 'safe', lastUpdated: '1 hour ago' },
   ]);
 
   const getStatusColor = (status: string) => {
@@ -79,7 +82,7 @@ const Products = () => {
     });
   };
 
-  const handleAddProduct = (name: string, categoryId: string, quantity: number) => {
+  const handleAddProduct = (name: string, categoryId: string, quantity: number, costPrice: number, sellingPrice: number) => {
     const category = categories.find(c => c.id === categoryId);
     const newProduct: Product = {
       id: Date.now().toString(),
@@ -87,6 +90,8 @@ const Products = () => {
       categoryId,
       categoryName: category?.name || '',
       quantity,
+      costPrice,
+      sellingPrice,
       status: determineStatus(quantity),
       lastUpdated: 'just now',
     };
@@ -125,10 +130,11 @@ const Products = () => {
   };
 
   const handleDeleteProduct = (productId: string) => {
+    const productToDelete = products.find(p => p.id === productId);
     setProducts(products.filter(p => p.id !== productId));
     toast({
       title: "Product deleted",
-      description: "Product has been removed from inventory.",
+      description: `${productToDelete?.name} has been removed from inventory.`,
     });
   };
 
@@ -261,6 +267,11 @@ const Products = () => {
                     <div>
                       <p className="font-medium text-gray-900">{product.name}</p>
                       <p className="text-sm text-gray-600">{product.categoryName}</p>
+                      <div className="flex space-x-4 text-xs text-gray-500 mt-1">
+                        <span>Cost: ${product.costPrice.toFixed(2)}</span>
+                        <span>Price: ${product.sellingPrice.toFixed(2)}</span>
+                        <span>Margin: {(((product.sellingPrice - product.costPrice) / product.sellingPrice) * 100).toFixed(1)}%</span>
+                      </div>
                     </div>
                   </div>
 

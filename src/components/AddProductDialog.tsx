@@ -16,21 +16,25 @@ interface AddProductDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   categories: Category[];
-  onAdd: (name: string, categoryId: string, quantity: number) => void;
+  onAdd: (name: string, categoryId: string, quantity: number, costPrice: number, sellingPrice: number) => void;
 }
 
 const AddProductDialog = ({ open, onOpenChange, categories, onAdd }: AddProductDialogProps) => {
   const [name, setName] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [costPrice, setCostPrice] = useState("");
+  const [sellingPrice, setSellingPrice] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (name.trim() && categoryId && quantity) {
-      onAdd(name, categoryId, parseInt(quantity));
+    if (name.trim() && categoryId && quantity && costPrice && sellingPrice) {
+      onAdd(name, categoryId, parseInt(quantity), parseFloat(costPrice), parseFloat(sellingPrice));
       setName("");
       setCategoryId("");
       setQuantity("");
+      setCostPrice("");
+      setSellingPrice("");
       onOpenChange(false);
     }
   };
@@ -71,7 +75,7 @@ const AddProductDialog = ({ open, onOpenChange, categories, onAdd }: AddProductD
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="quantity">Quantity</Label>
+            <Label htmlFor="quantity">Units in Stock</Label>
             <Input
               id="quantity"
               type="number"
@@ -82,11 +86,37 @@ const AddProductDialog = ({ open, onOpenChange, categories, onAdd }: AddProductD
               required
             />
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="costPrice">Cost Price ($)</Label>
+            <Input
+              id="costPrice"
+              type="number"
+              step="0.01"
+              value={costPrice}
+              onChange={(e) => setCostPrice(e.target.value)}
+              placeholder="Enter cost price"
+              min="0"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="sellingPrice">Selling Price ($)</Label>
+            <Input
+              id="sellingPrice"
+              type="number"
+              step="0.01"
+              value={sellingPrice}
+              onChange={(e) => setSellingPrice(e.target.value)}
+              placeholder="Enter selling price"
+              min="0"
+              required
+            />
+          </div>
           <div className="flex justify-end space-x-2">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button type="submit" disabled={!name.trim() || !categoryId || !quantity}>
+            <Button type="submit" disabled={!name.trim() || !categoryId || !quantity || !costPrice || !sellingPrice}>
               Add Product
             </Button>
           </div>

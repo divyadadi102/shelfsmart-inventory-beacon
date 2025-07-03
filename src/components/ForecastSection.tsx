@@ -1,11 +1,11 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Users, DollarSign, Package, Star, CloudRain, Percent } from "lucide-react";
+import { Users, DollarSign, Package, Star, CloudRain } from "lucide-react";
 import { useState } from "react";
 import WeatherCard from "./WeatherCard";
+import TexasMap from "./TexasMap";
 
 type PredictionPeriod = 'today' | 'tomorrow' | 'nextWeek';
 
@@ -223,23 +223,7 @@ const ForecastSection = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-lg">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center space-x-2 text-sm">
-              <Percent className="w-4 h-4 text-blue-600" />
-              <span>Profit Margin</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-blue-600 mb-1">{currentPrediction.profitMargin}%</p>
-              <p className="text-xs text-gray-600">expected margin</p>
-              <Badge className="mt-1 bg-blue-100 text-blue-800 text-xs">
-                +2.1% vs last period
-              </Badge>
-            </div>
-          </CardContent>
-        </Card>
+        <TexasMap />
       </div>
     </div>
   );

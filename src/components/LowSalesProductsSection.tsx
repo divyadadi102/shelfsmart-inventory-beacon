@@ -2,6 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingDown, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 
@@ -85,6 +86,20 @@ const LowSalesProductsSection = () => {
         </div>
       </CardHeader>
       <CardContent>
+        {/* Graph */}
+        <div className="mb-6">
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={currentData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="sales" fill="#ef4444" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Product List */}
         <div className="space-y-3">
           <div className="flex items-center space-x-2 mb-4">
             <AlertTriangle className="w-4 h-4 text-red-500" />

@@ -2,6 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingUp, Star } from "lucide-react";
 import { useState } from "react";
 
@@ -46,76 +47,92 @@ const TopSellingProductsSection = () => {
   };
 
   return (
-    <Card className="shadow-lg mb-8">
-      <CardHeader>
-        <CardTitle className="flex items-center space-x-2">
-          <TrendingUp className="w-5 h-5 text-green-600" />
-          <span>Top Selling Products</span>
-        </CardTitle>
-        <CardDescription>
-          Best performing products by sales volume and revenue
-        </CardDescription>
-        
-        {/* Time Period Selector */}
-        <div className="flex space-x-2 mt-4">
-          <Button
-            variant={timePeriod === 'lastWeek' ? 'default' : 'outline'}
-            onClick={() => setTimePeriod('lastWeek')}
-            size="sm"
-          >
-            Last Week
-          </Button>
-          <Button
-            variant={timePeriod === 'lastMonth' ? 'default' : 'outline'}
-            onClick={() => setTimePeriod('lastMonth')}
-            size="sm"
-          >
-            Last Month
-          </Button>
-          <Button
-            variant={timePeriod === 'customRange' ? 'default' : 'outline'}
-            onClick={() => setTimePeriod('customRange')}
-            size="sm"
-          >
-            Custom Range
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
-          <div className="flex items-center space-x-2 mb-4">
-            <Star className="w-4 h-4 text-green-500" />
-            <h3 className="font-semibold text-green-700">Top Performers - {getPeriodTitle()}</h3>
+    <div className="mb-8">
+      <Card className="shadow-lg">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <TrendingUp className="w-5 h-5 text-green-600" />
+            <span>Top Selling Products</span>
+          </CardTitle>
+          <CardDescription>
+            Best performing products by sales volume and revenue
+          </CardDescription>
+          
+          {/* Time Period Selector */}
+          <div className="flex space-x-2 mt-4">
+            <Button
+              variant={timePeriod === 'lastWeek' ? 'default' : 'outline'}
+              onClick={() => setTimePeriod('lastWeek')}
+              size="sm"
+            >
+              Last Week
+            </Button>
+            <Button
+              variant={timePeriod === 'lastMonth' ? 'default' : 'outline'}
+              onClick={() => setTimePeriod('lastMonth')}
+              size="sm"
+            >
+              Last Month
+            </Button>
+            <Button
+              variant={timePeriod === 'customRange' ? 'default' : 'outline'}
+              onClick={() => setTimePeriod('customRange')}
+              size="sm"
+            >
+              Custom Range
+            </Button>
           </div>
-          {currentData.map((product, index) => (
-            <div key={product.name} className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
-                  #{index + 1}
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center space-x-2 mb-1">
-                    <span className="font-medium text-green-900">{product.name}</span>
-                    <Badge variant="secondary" className="bg-green-100 text-green-800">
-                      {product.category}
-                    </Badge>
-                  </div>
-                  <div className="text-sm text-green-700">
-                    Sales: {product.sales} units • Revenue: ${product.revenue}
-                  </div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-sm font-medium text-green-900">
-                  {product.trend}
-                </div>
-                <div className="text-xs text-green-600">vs previous period</div>
-              </div>
+        </CardHeader>
+        <CardContent>
+          {/* Graph */}
+          <div className="mb-6">
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={currentData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="sales" fill="#10b981" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Product List */}
+          <div className="space-y-3">
+            <div className="flex items-center space-x-2 mb-4">
+              <Star className="w-4 h-4 text-green-500" />
+              <h3 className="font-semibold text-green-700">Top Performers - {getPeriodTitle()}</h3>
             </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+            {currentData.map((product, index) => (
+              <div key={product.name} className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                    #{index + 1}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className="font-medium text-green-900">{product.name}</span>
+                      <Badge variant="secondary" className="bg-green-100 text-green-800">
+                        {product.category}
+                      </Badge>
+                    </div>
+                    <div className="text-sm text-green-700">
+                      Sales: {product.sales} units • Revenue: ${product.revenue}
+                    </div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-medium text-green-900">
+                    {product.trend}
+                  </div>
+                  <div className="text-xs text-green-600">vs previous period</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

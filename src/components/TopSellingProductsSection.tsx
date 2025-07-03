@@ -1,15 +1,17 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingUp, Star } from "lucide-react";
 import { useState } from "react";
+import { DateRange } from "react-day-picker";
+import { DateRangePicker } from "./DateRangePicker";
 
 type TimePeriod = 'lastWeek' | 'lastMonth' | 'customRange';
 
 const TopSellingProductsSection = () => {
   const [timePeriod, setTimePeriod] = useState<TimePeriod>('lastWeek');
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
   const topSellingData = {
     lastWeek: [
@@ -41,7 +43,9 @@ const TopSellingProductsSection = () => {
     switch (timePeriod) {
       case 'lastWeek': return "Last Week";
       case 'lastMonth': return "Last Month";
-      case 'customRange': return "Custom Range (Last 3 Months)";
+      case 'customRange': return dateRange?.from && dateRange?.to 
+        ? `${dateRange.from.toLocaleDateString()} - ${dateRange.to.toLocaleDateString()}`
+        : "Custom Range (Last 3 Months)";
       default: return "Last Week";
     }
   };
@@ -59,28 +63,39 @@ const TopSellingProductsSection = () => {
           </CardDescription>
           
           {/* Time Period Selector */}
-          <div className="flex space-x-2 mt-4">
-            <Button
-              variant={timePeriod === 'lastWeek' ? 'default' : 'outline'}
-              onClick={() => setTimePeriod('lastWeek')}
-              size="sm"
-            >
-              Last Week
-            </Button>
-            <Button
-              variant={timePeriod === 'lastMonth' ? 'default' : 'outline'}
-              onClick={() => setTimePeriod('lastMonth')}
-              size="sm"
-            >
-              Last Month
-            </Button>
-            <Button
-              variant={timePeriod === 'customRange' ? 'default' : 'outline'}
-              onClick={() => setTimePeriod('customRange')}
-              size="sm"
-            >
-              Custom Range
-            </Button>
+          <div className="flex flex-col space-y-3 mt-4">
+            <div className="flex space-x-2">
+              <Button
+                variant={timePeriod === 'lastWeek' ? 'default' : 'outline'}
+                onClick={() => setTimePeriod('lastWeek')}
+                size="sm"
+              >
+                Last Week
+              </Button>
+              <Button
+                variant={timePeriod === 'lastMonth' ? 'default' : 'outline'}
+                onClick={() => setTimePeriod('lastMonth')}
+                size="sm"
+              >
+                Last Month
+              </Button>
+              <Button
+                variant={timePeriod === 'customRange' ? 'default' : 'outline'}
+                onClick={() => setTimePeriod('customRange')}
+                size="sm"
+              >
+                Custom Range
+              </Button>
+            </div>
+            
+            {/* Date Range Picker for Custom Range */}
+            {timePeriod === 'customRange' && (
+              <DateRangePicker
+                dateRange={dateRange}
+                onDateRangeChange={setDateRange}
+                className="mt-2"
+              />
+            )}
           </div>
         </CardHeader>
         <CardContent>

@@ -18,9 +18,50 @@ const TexasMap = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/light-v11',
-      center: [-95.3698, 29.7604], // Houston coordinates
-      zoom: 6,
+      center: [-99.9018, 31.9686], // Texas center
+      zoom: 5.5,
       pitch: 0,
+    });
+
+    map.current.on('load', () => {
+      // Add Texas state boundary
+      map.current?.addSource('texas-boundary', {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [-106.645646, 25.837164],
+              [-93.508292, 25.837164],
+              [-93.508292, 36.500704],
+              [-106.645646, 36.500704],
+              [-106.645646, 25.837164]
+            ]]
+          }
+        }
+      });
+
+      map.current?.addLayer({
+        id: 'texas-fill',
+        type: 'fill',
+        source: 'texas-boundary',
+        paint: {
+          'fill-color': '#ef4444',
+          'fill-opacity': 0.1
+        }
+      });
+
+      map.current?.addLayer({
+        id: 'texas-border',
+        type: 'line',
+        source: 'texas-boundary',
+        paint: {
+          'line-color': '#ef4444',
+          'line-width': 2
+        }
+      });
     });
 
     // Add Houston marker

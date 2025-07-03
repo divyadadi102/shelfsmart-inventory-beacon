@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingUp, Star } from "lucide-react";
 import { useState } from "react";
 
@@ -87,13 +87,19 @@ const TopSellingProductsSection = () => {
           {/* Graph */}
           <div className="mb-6">
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={currentData}>
+              <LineChart data={currentData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="sales" fill="#10b981" />
-              </BarChart>
+                <Line 
+                  type="monotone" 
+                  dataKey="sales" 
+                  stroke="#10b981" 
+                  strokeWidth={3}
+                  dot={{ fill: '#10b981', strokeWidth: 2, r: 6 }}
+                />
+              </LineChart>
             </ResponsiveContainer>
           </div>
 

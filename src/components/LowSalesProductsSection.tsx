@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingDown, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 
@@ -89,13 +89,20 @@ const LowSalesProductsSection = () => {
         {/* Graph */}
         <div className="mb-6">
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={currentData}>
+            <AreaChart data={currentData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="sales" fill="#ef4444" />
-            </BarChart>
+              <Area 
+                type="monotone" 
+                dataKey="sales" 
+                stroke="#ef4444"
+                fill="#ef4444"
+                fillOpacity={0.3}
+                strokeWidth={2}
+              />
+            </AreaChart>
           </ResponsiveContainer>
         </div>
 

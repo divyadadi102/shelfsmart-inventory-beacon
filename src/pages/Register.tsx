@@ -35,13 +35,46 @@ const Register = () => {
     setIsLoading(true);
     
     // Simulate API call
-    setTimeout(() => {
+    /*setTimeout(() => {
       toast({
         title: "Account created successfully!",
         description: "Welcome to ShelfSmart. You're now logged in.",
       });
       navigate("/dashboard");
-    }, 1000);
+    }, 1000);*/
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || "Registration failed");
+      }
+
+      toast({
+        title: "Account created successfully!",
+        description: "Welcome to ShelfSmart. You can now log in.",
+      });
+
+      navigate("/login");
+    } catch (error: any) {
+      toast({
+        title: "Registration failed",
+        description: error.message,
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {

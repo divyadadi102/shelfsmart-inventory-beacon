@@ -20,13 +20,46 @@ const Login = () => {
     setIsLoading(true);
     
     // Simulate API call
-    setTimeout(() => {
+    /*setTimeout(() => {
       toast({
         title: "Welcome back!",
         description: "You've been successfully logged in.",
       });
       navigate("/dashboard");
-    }, 1000);
+    }, 1000);*/
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || "Login failed");
+      }
+
+      const data = await response.json();
+      localStorage.setItem("token", data.access_token);
+
+      toast({
+        title: "Welcome back!",
+        description: "You've been successfully logged in.",
+      });
+
+      navigate("/dashboard");
+    } catch (error: any) {
+      toast({
+        title: "Login failed",
+        description: error.message,
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+
   };
 
   return (

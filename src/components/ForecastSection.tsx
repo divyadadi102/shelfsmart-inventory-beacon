@@ -6,14 +6,26 @@ import { Users, DollarSign, Package, Star, CloudRain } from "lucide-react";
 import { useState } from "react";
 import WeatherCard from "./WeatherCard";
 import TexasMap from "./TexasMap";
+import { useEffect, } from "react";
 
 type PredictionPeriod = 'today' | 'tomorrow' | 'nextWeek';
+type ForecastData = {
+    allProducts: { name: string; expected: number; color?: string }[];
+    expectedTraffic: number;
+    expectedRevenue: number;
+    inventoryTurnover: number;
+    profitMargin: number;
+    weatherImpact: string;
+  };
 
 const ForecastSection = () => {
   const [predictionPeriod, setPredictionPeriod] = useState<PredictionPeriod>('today');
+  const [predictionData, setPredictionData] = useState<Record<PredictionPeriod, ForecastData> | null>(null);
+  const [loading, setLoading] = useState(true);
+
 
   // Mock data for different prediction periods - ALL PRODUCTS
-  const predictionData = {
+  /*const predictionData = {
     today: {
       allProducts: [
         { name: "Milk", expected: 45, color: "#3b82f6" },
@@ -79,7 +91,29 @@ const ForecastSection = () => {
     }
   };
 
-  const currentPrediction = predictionData[predictionPeriod];
+  const currentPrediction = predictionData[predictionPeriod];*/
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/api/forecast", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch forecast data");
+        const data = await res.json();
+        setPredictionData(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+  fetchData();
+}, []);
 
   const getPredictionTitle = () => {
     switch (predictionPeriod) {
@@ -89,6 +123,14 @@ const ForecastSection = () => {
       default: return "Forecasts";
     }
   };
+  if (loading) {
+  return <p className="text-center text-gray-500">Loading forecasts...</p>;
+  }
+
+  if (!predictionData) {
+    return <p className="text-center text-red-500">No forecast data available.</p>;
+  }
+  const currentPrediction = predictionData[predictionPeriod];
 
   return (
     <div className="mb-12">

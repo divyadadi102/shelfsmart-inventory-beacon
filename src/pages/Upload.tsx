@@ -25,7 +25,7 @@ const Upload = () => {
     }
   };
 
-  const handleSubmitFile = async () => {
+    const handleSubmitFile = async () => {
     if (!file) {
       toast({
         title: "No file selected",
@@ -36,17 +36,55 @@ const Upload = () => {
     }
 
     setUploading(true);
-    
-    // Simulate upload process
-    setTimeout(() => {
+
+    try {
+      // Step 1: Create form data and upload
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const uploadResponse = await fetch("http://localhost:8000/api/upload", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        body: formData,
+      });
+
+      if (!uploadResponse.ok) {
+        const errorData = await uploadResponse.json();
+        throw new Error(errorData.detail || "Upload failed.");
+      }
+
+      // Step 2: Optionally trigger forecast endpoint (optional if forecast is auto-triggered)
+      const forecastResponse = await fetch("http://localhost:8000/api/forecast", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      });
+
+      if (!forecastResponse.ok) {
+        console.warn("Forecast fetch failed");  // Optional
+      }
+
+      // Step 3: Notify and redirect
       toast({
         title: "Upload successful!",
         description: "Your data has been processed and forecasts have been updated.",
       });
-      setUploading(false);
+
       navigate("/dashboard");
-    }, 2000);
+    } catch (error: any) {
+      toast({
+        title: "Upload failed",
+        description: error.message || "Something went wrong.",
+        variant: "destructive"
+      });
+    } finally {
+      setUploading(false);
+    }
   };
+
 
   const handlePosConnect = async () => {
     if (!posUrl || !apiKey) {

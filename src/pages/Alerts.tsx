@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,44 +8,22 @@ import Navigation from "@/components/Navigation";
 interface Product {
   id: string;
   name: string;
-  category: string;
-  remaining: number;
-  status: 'critical' | 'low' | 'safe';
+  categoryId: string;
+  categoryName: string;
+  quantity: number;
   lastUpdated: string;
-  dailyConsumption: number; // Added for time calculations
+  dailyConsumption: number;
 }
 
 const Alerts = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
 
-  const products: Product[] = [
-    { id: '1', name: 'Milk', category: 'Dairy', remaining: 8, status: 'critical', lastUpdated: '2 hours ago', dailyConsumption: 15 },
-    { id: '2', name: 'Bread', category: 'Bakery', remaining: 12, status: 'critical', lastUpdated: '1 hour ago', dailyConsumption: 10 },
-    { id: '3', name: 'Eggs', category: 'Dairy', remaining: 15, status: 'low', lastUpdated: '30 minutes ago', dailyConsumption: 12 },
-    { id: '4', name: 'Yogurt', category: 'Dairy', remaining: 18, status: 'low', lastUpdated: '1 hour ago', dailyConsumption: 8 },
-    { id: '5', name: 'Bananas', category: 'Fruits', remaining: 22, status: 'low', lastUpdated: '45 minutes ago', dailyConsumption: 6 },
-    { id: '6', name: 'Chips', category: 'Snacks', remaining: 25, status: 'low', lastUpdated: '2 hours ago', dailyConsumption: 7 },
-    { id: '7', name: 'Cheese', category: 'Dairy', remaining: 45, status: 'safe', lastUpdated: '3 hours ago', dailyConsumption: 5 },
-    { id: '8', name: 'Apples', category: 'Fruits', remaining: 52, status: 'safe', lastUpdated: '1 hour ago', dailyConsumption: 8 },
-    { id: '9', name: 'Cookies', category: 'Snacks', remaining: 38, status: 'safe', lastUpdated: '2 hours ago', dailyConsumption: 4 },
-    { id: '10', name: 'Pastries', category: 'Bakery', remaining: 30, status: 'safe', lastUpdated: '4 hours ago', dailyConsumption: 6 },
-  ];
-
-  const calculateTimeRemaining = (remaining: number, dailyConsumption: number) => {
-    if (dailyConsumption === 0) return "Unknown";
-    
-    const daysRemaining = remaining / dailyConsumption;
-    
-    if (daysRemaining < 1) {
-      const hoursRemaining = Math.round(daysRemaining * 24);
-      return hoursRemaining <= 1 ? `${hoursRemaining} hour left` : `${hoursRemaining} hours left`;
-    } else if (daysRemaining < 7) {
-      return `${daysRemaining.toFixed(1)} days left`;
-    } else {
-      const weeksRemaining = Math.round(daysRemaining / 7);
-      return `${weeksRemaining} week${weeksRemaining > 1 ? 's' : ''} left`;
-    }
+  const getStatus = (quantity: number): 'critical' | 'low' | 'safe' => {
+    if (quantity <= 20) return 'critical';
+    if (quantity <= 50) return 'low';
+    return 'safe';
   };
 
   const getStatusColor = (status: string) => {
@@ -73,106 +51,105 @@ const Alerts = () => {
     return 'text-gray-600';
   };
 
-  // Filter products based on selected category and status
+  const calculateTimeRemaining = (remaining: number, dailyConsumption: number) => {
+    if (dailyConsumption === 0) return "Unknown";
+
+    const daysRemaining = remaining / dailyConsumption;
+
+    if (daysRemaining < 1) {
+      const hoursRemaining = Math.round(daysRemaining * 24);
+      return hoursRemaining <= 1 ? `${hoursRemaining} hour left` : `${hoursRemaining} hours left`;
+    } else if (daysRemaining < 7) {
+      return `${daysRemaining.toFixed(1)} days left`;
+    } else {
+      const weeksRemaining = Math.round(daysRemaining / 7);
+      return `${weeksRemaining} week${weeksRemaining > 1 ? 's' : ''} left`;
+    }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const [stockRes, catRes] = await Promise.all([
+        fetch("http://localhost:8000/api/stock"),
+        fetch("http://localhost:8000/api/categories")
+      ]);
+
+      const stock = await stockRes.json();
+      const categories = await catRes.json();
+
+      const enriched = stock.map((p: any) => {
+        const category = categories.find((c: any) => c.id === p.category_id);
+        return {
+          id: p.id.toString(),
+          name: p.name,
+          categoryId: p.category_id.toString(),
+          categoryName: category?.name || "",
+          quantity: p.quantity,
+          lastUpdated: new Date(p.last_updated).toLocaleString(),
+          dailyConsumption: p.daily_consumption || 10, // fallback if not provided
+        };
+      });
+
+      setProducts(enriched);
+    } catch (error) {
+      console.error("Failed to fetch alerts data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   const filteredProducts = products.filter(product => {
-    const categoryMatch = !selectedCategory || product.category === selectedCategory;
-    const statusMatch = !selectedStatus || product.status === selectedStatus;
+    const status = getStatus(product.quantity);
+    const categoryMatch = !selectedCategory || product.categoryName === selectedCategory;
+    const statusMatch = !selectedStatus || status === selectedStatus;
     return categoryMatch && statusMatch;
   });
 
-  // Sort products by status priority (critical first, then low, then safe)
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     const statusOrder = { critical: 0, low: 1, safe: 2 };
-    return statusOrder[a.status] - statusOrder[b.status];
+    return statusOrder[getStatus(a.quantity)] - statusOrder[getStatus(b.quantity)];
   });
 
-  const criticalCount = products.filter(p => p.status === 'critical').length;
-  const lowCount = products.filter(p => p.status === 'low').length;
-  const safeCount = products.filter(p => p.status === 'safe').length;
+  const categories = [...new Set(products.map(p => p.categoryName))];
 
-  const categories = [...new Set(products.map(p => p.category))];
-
-  const clearFilters = () => {
-    setSelectedCategory(null);
-    setSelectedStatus(null);
-  };
+  const criticalCount = products.filter(p => getStatus(p.quantity) === 'critical').length;
+  const lowCount = products.filter(p => getStatus(p.quantity) === 'low').length;
+  const safeCount = products.filter(p => getStatus(p.quantity) === 'safe').length;
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
-      
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Inventory Alerts</h1>
           <p className="text-gray-600">Monitor your inventory levels and get proactive alerts</p>
         </div>
 
-        {/* Filter Buttons */}
         <div className="mb-6">
           <div className="flex flex-wrap gap-2 mb-4">
             <h3 className="text-sm font-medium text-gray-700 w-full mb-2">Filter by Category:</h3>
-            <Button
-              variant={selectedCategory === null ? "default" : "outline"}
-              size="sm"
-              onClick={clearFilters}
-            >
-              All Categories
-            </Button>
+            <Button variant={selectedCategory === null ? "default" : "outline"} size="sm" onClick={() => setSelectedCategory(null)}>All Categories</Button>
             {categories.map((category) => (
-              <Button
-                key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </Button>
+              <Button key={category} variant={selectedCategory === category ? "default" : "outline"} size="sm" onClick={() => setSelectedCategory(category)}>{category}</Button>
             ))}
           </div>
-          
+
           <div className="flex flex-wrap gap-2">
             <h3 className="text-sm font-medium text-gray-700 w-full mb-2">Filter by Status:</h3>
-            <Button
-              variant={selectedStatus === null ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelectedStatus(null)}
-            >
-              All Status
-            </Button>
-            <Button
-              variant={selectedStatus === 'critical' ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelectedStatus('critical')}
-              className="text-red-600"
-            >
-              🔴 Critical
-            </Button>
-            <Button
-              variant={selectedStatus === 'low' ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelectedStatus('low')}
-              className="text-orange-600"
-            >
-              🟠 Low
-            </Button>
-            <Button
-              variant={selectedStatus === 'safe' ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelectedStatus('safe')}
-              className="text-green-600"
-            >
-              🟢 Safe
-            </Button>
+            <Button variant={selectedStatus === null ? "default" : "outline"} size="sm" onClick={() => setSelectedStatus(null)}>All Status</Button>
+            <Button variant={selectedStatus === 'critical' ? "default" : "outline"} size="sm" className="text-red-600" onClick={() => setSelectedStatus('critical')}>🔴 Critical</Button>
+            <Button variant={selectedStatus === 'low' ? "default" : "outline"} size="sm" className="text-orange-600" onClick={() => setSelectedStatus('low')}>🟠 Low</Button>
+            <Button variant={selectedStatus === 'safe' ? "default" : "outline"} size="sm" className="text-green-600" onClick={() => setSelectedStatus('safe')}>🟢 Safe</Button>
           </div>
         </div>
 
-        {/* Summary Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           <Card className="shadow-lg">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between">
-                <span className="text-lg">Critical Items</span>
-                <span className="text-2xl">🔴</span>
+                <span className="text-lg">Critical Items</span><span className="text-2xl">🔴</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -184,8 +161,7 @@ const Alerts = () => {
           <Card className="shadow-lg">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between">
-                <span className="text-lg">Low Stock</span>
-                <span className="text-2xl">🟠</span>
+                <span className="text-lg">Low Stock</span><span className="text-2xl">🟠</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -197,8 +173,7 @@ const Alerts = () => {
           <Card className="shadow-lg">
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center justify-between">
-                <span className="text-lg">Safe Stock</span>
-                <span className="text-2xl">🟢</span>
+                <span className="text-lg">Safe Stock</span><span className="text-2xl">🟢</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -208,7 +183,6 @@ const Alerts = () => {
           </Card>
         </div>
 
-        {/* Product Alert Table */}
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
@@ -223,47 +197,45 @@ const Alerts = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {sortedProducts.map((product) => (
-                <div key={product.id} className="flex items-center justify-between p-4 bg-white border rounded-lg hover:shadow-md transition-shadow">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-2xl">{getStatusIcon(product.status)}</span>
-                      <div>
-                        <p className="font-medium text-gray-900">{product.name}</p>
-                        <p className="text-sm text-gray-600">{product.category}</p>
-                        <div className="flex items-center space-x-1 mt-1">
-                          <Clock className="w-3 h-3 text-gray-400" />
-                          <p className={`text-xs ${getTimeRemainingColor(product.remaining, product.dailyConsumption)}`}>
-                            {calculateTimeRemaining(product.remaining, product.dailyConsumption)}
-                          </p>
+              {sortedProducts.map((product) => {
+                const status = getStatus(product.quantity);
+                return (
+                  <div key={product.id} className="flex items-center justify-between p-4 bg-white border rounded-lg hover:shadow-md transition-shadow">
+                    <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-2xl">{getStatusIcon(status)}</span>
+                        <div>
+                          <p className="font-medium text-gray-900">{product.name}</p>
+                          <p className="text-sm text-gray-600">{product.categoryName}</p>
+                          <div className="flex items-center space-x-1 mt-1">
+                            <Clock className="w-3 h-3 text-gray-400" />
+                            <p className={`text-xs ${getTimeRemainingColor(product.quantity, product.dailyConsumption)}`}>
+                              {calculateTimeRemaining(product.quantity, product.dailyConsumption)}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="flex items-center space-x-4">
-                    <div className="text-right">
-                      <p className="font-medium text-gray-900">{product.remaining} units</p>
-                      <p className="text-sm text-gray-500">Daily use: {product.dailyConsumption}</p>
-                      <p className="text-sm text-gray-500">Updated {product.lastUpdated}</p>
+                    <div className="flex items-center space-x-4">
+                      <div className="text-right">
+                        <p className="font-medium text-gray-900">{product.quantity} units</p>
+                        <p className="text-sm text-gray-500">Daily use: {product.dailyConsumption}</p>
+                        <p className="text-sm text-gray-500">Updated {product.lastUpdated}</p>
+                      </div>
+                      <Badge className={`${getStatusColor(status)} font-medium capitalize`}>{status}</Badge>
                     </div>
-                    
-                    <Badge 
-                      className={`${getStatusColor(product.status)} font-medium capitalize`}
-                    >
-                      {product.status}
-                    </Badge>
                   </div>
-                </div>
-              ))}
-            </div>
+                );
+              })}
 
-            {sortedProducts.length === 0 && (
-              <div className="text-center py-12">
-                <Package className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No products found with current filters</p>
-              </div>
-            )}
+              {sortedProducts.length === 0 && (
+                <div className="text-center py-12">
+                  <Package className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-600">No products found with current filters</p>
+                </div>
+              )}
+            </div>
           </CardContent>
         </Card>
       </div>

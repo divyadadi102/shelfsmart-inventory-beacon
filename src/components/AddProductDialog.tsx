@@ -16,7 +16,13 @@ interface AddProductDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   categories: Category[];
-  onAdd: (name: string, categoryId: string, quantity: number, costPrice: number, sellingPrice: number) => void;
+  onAdd: (productData: {
+    name: string;
+    categoryId: string;
+    quantity: number;
+    costPrice: number;
+    sellingPrice: number;
+  }) => void;
 }
 
 const AddProductDialog = ({ open, onOpenChange, categories, onAdd }: AddProductDialogProps) => {
@@ -27,17 +33,24 @@ const AddProductDialog = ({ open, onOpenChange, categories, onAdd }: AddProductD
   const [sellingPrice, setSellingPrice] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (name.trim() && categoryId && quantity && costPrice && sellingPrice) {
-      onAdd(name, categoryId, parseInt(quantity), parseFloat(costPrice), parseFloat(sellingPrice));
-      setName("");
-      setCategoryId("");
-      setQuantity("");
-      setCostPrice("");
-      setSellingPrice("");
-      onOpenChange(false);
-    }
-  };
+  e.preventDefault();
+  if (name.trim() && categoryId && quantity && costPrice && sellingPrice) {
+    onAdd({
+      name,
+      categoryId,
+      quantity: parseInt(quantity),
+      costPrice: parseFloat(costPrice),
+      sellingPrice: parseFloat(sellingPrice),
+    });
+    setName("");
+    setCategoryId("");
+    setQuantity("");
+    setCostPrice("");
+    setSellingPrice("");
+    onOpenChange(false);
+  }
+};
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -61,13 +74,14 @@ const AddProductDialog = ({ open, onOpenChange, categories, onAdd }: AddProductD
           </div>
           <div className="space-y-2">
             <Label htmlFor="category">Category</Label>
-            <Select value={categoryId} onValueChange={setCategoryId} required>
+            {/*<Select value={categoryId} onValueChange={setCategoryId} required>*/}
+            <Select value={categoryId} onValueChange={(value) => setCategoryId(value)} required>
               <SelectTrigger>
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id}>
+                  <SelectItem key={category.id} value={category.id.toString()}>
                     {category.name}
                   </SelectItem>
                 ))}

@@ -1,0 +1,14 @@
+{
+  "resaved_date": "2025-07-04T21:12:05.652008",
+  "resaved_with": {
+    "pandas_version": "2.2.2",
+    "lightgbm_version": "4.6.0",
+    "numpy_version": "2.0.2"
+  },
+  "available_formats": [
+    "model_native.txt",
+    "model_joblib.pkl",
+    "model_pickle_v4.pkl",
+    "model_pickle_latest.pkl"
+  ]
+}

@@ -1,0 +1,5 @@
+id,date,store_nbr,item_nbr,unit_sales,onpromotion,category,holiday,item_class,perishable,item_name,item_category,cost_price,price
+23142681,2014-05-01,1,402175,1.0,False,GROCERY I,1,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,GROCERY I,6.6,8.84
+23155462,2014-05-01,11,660310,15.0,False,BREAD/BAKERY,1,2752,1,Nature’s Own 100% Whole Wheat Bread 20 oz,BREAD/BAKERY,4.3,5.91
+23144433,2014-05-01,2,1124165,3.0,False,BEVERAGES,1,1124,0,Ozarka 100% Natural Spring Water 6 x 16.9 fl oz,BEVERAGES,3.2,4.31
+24543652,2014-05-29,17,459804,4.0,True,GROCERY I,0,1086,0,Morton Iodized Salt 26 oz,GROCERY I,2.2,3.11

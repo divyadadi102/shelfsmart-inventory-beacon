@@ -1,0 +1,351 @@
+id,date,store_nbr,item_nbr,unit_sales,onpromotion,category,holiday,item_class,perishable,item_name,cost_price,price
+122137736,2017-07-15,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+122137775,2017-07-15,1,459804,2.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+122137918,2017-07-15,1,655749,3.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+122137985,2017-07-15,1,759694,4.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+122138556,2017-07-15,1,1313223,9.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+122138605,2017-07-15,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+122138610,2017-07-15,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+122138614,2017-07-15,1,1354390,2.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+122138679,2017-07-15,1,1441514,2.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+122138840,2017-07-15,1,1471460,2.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+122138843,2017-07-15,1,1472479,3.0,False,PET SUPPLIES,0,6517,0,Meow Mix Original Choice Dry Cat Food 3.15 lb,6.3,8.35
+122138979,2017-07-15,1,1686685,5.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+122139258,2017-07-15,1,2010456,2.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+122248758,2017-07-16,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+122248886,2017-07-16,1,655749,1.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+122248927,2017-07-16,1,759694,3.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+122249340,2017-07-16,1,1313223,3.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+122249366,2017-07-16,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+122249373,2017-07-16,1,1354390,1.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+122249408,2017-07-16,1,1441514,2.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+122249525,2017-07-16,1,1471460,2.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+122360528,2017-07-17,1,108952,1.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+122360793,2017-07-17,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+122360838,2017-07-17,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+122361001,2017-07-17,1,655749,2.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+122361071,2017-07-17,1,759694,4.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+122361464,2017-07-17,1,1132005,2.0,False,BEVERAGES,0,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+122361659,2017-07-17,1,1313223,8.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+122361708,2017-07-17,1,1349808,5.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+122361715,2017-07-17,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+122361718,2017-07-17,1,1354390,2.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+122361784,2017-07-17,1,1441514,4.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+122361959,2017-07-17,1,1471460,4.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+122362098,2017-07-17,1,1686685,14.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+122362392,2017-07-17,1,2010456,1.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+122465039,2017-07-18,1,108952,1.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+122465295,2017-07-18,1,402175,2.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+122465344,2017-07-18,1,459804,3.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+122465498,2017-07-18,1,655749,4.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+122465566,2017-07-18,1,759694,5.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+122466142,2017-07-18,1,1313223,6.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+122466183,2017-07-18,1,1349808,2.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+122466264,2017-07-18,1,1441514,1.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+122466437,2017-07-18,1,1471460,4.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+122466575,2017-07-18,1,1686685,3.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+122466854,2017-07-18,1,2010456,1.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+122466970,2017-07-18,1,2048246,3.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+122566449,2017-07-19,1,108952,4.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+122566712,2017-07-19,1,402175,4.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+122566764,2017-07-19,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+122566925,2017-07-19,1,655749,6.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+122566989,2017-07-19,1,759694,5.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+122567573,2017-07-19,1,1313223,7.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+122567626,2017-07-19,1,1349808,2.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+122567632,2017-07-19,1,1354383,2.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+122567638,2017-07-19,1,1354390,1.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+122567704,2017-07-19,1,1441514,1.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+122567883,2017-07-19,1,1471460,3.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+122568028,2017-07-19,1,1686685,3.0,True,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+122568318,2017-07-19,1,2010456,2.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+122568437,2017-07-19,1,2048246,1.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+122667541,2017-07-20,1,108952,5.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+122667809,2017-07-20,1,402175,4.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+122667854,2017-07-20,1,459804,2.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+122668021,2017-07-20,1,655749,1.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+122668088,2017-07-20,1,759694,4.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+122668684,2017-07-20,1,1313223,6.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+122668734,2017-07-20,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+122668803,2017-07-20,1,1441514,2.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+122668981,2017-07-20,1,1471460,4.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+122669121,2017-07-20,1,1686685,5.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+122669403,2017-07-20,1,2010456,1.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+122767624,2017-07-21,1,108952,4.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+122767899,2017-07-21,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+122768105,2017-07-21,1,655749,3.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+122768172,2017-07-21,1,759694,7.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+122768770,2017-07-21,1,1313223,8.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+122768821,2017-07-21,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+122768827,2017-07-21,1,1354383,2.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+122768903,2017-07-21,1,1441514,6.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+122769078,2017-07-21,1,1471460,5.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+122769082,2017-07-21,1,1472479,1.0,False,PET SUPPLIES,0,6517,0,Meow Mix Original Choice Dry Cat Food 3.15 lb,6.3,8.35
+122769224,2017-07-21,1,1686685,5.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+122769518,2017-07-21,1,2010456,4.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+122769637,2017-07-21,1,2048246,3.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+122869733,2017-07-22,1,108952,6.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+122870046,2017-07-22,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+122870208,2017-07-22,1,655749,1.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+122870274,2017-07-22,1,759694,5.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+122870863,2017-07-22,1,1313223,3.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+122870911,2017-07-22,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+122870917,2017-07-22,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+122871155,2017-07-22,1,1471460,2.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+122871160,2017-07-22,1,1472479,1.0,False,PET SUPPLIES,0,6517,0,Meow Mix Original Choice Dry Cat Food 3.15 lb,6.3,8.35
+122871301,2017-07-22,1,1686685,4.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+122871699,2017-07-22,1,2048246,1.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+122979900,2017-07-23,1,759694,3.0,False,Pantry Staples,1,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+122980346,2017-07-23,1,1354383,1.0,False,Pantry Staples,1,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+122980350,2017-07-23,1,1354390,1.0,False,Pantry Staples,1,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+122980503,2017-07-23,1,1471460,1.0,False,DAIRY,1,2128,1,Borden Whole Milk Gallon,5.1,6.78
+122980615,2017-07-23,1,1686685,2.0,False,PRODUCE,1,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123090102,2017-07-24,1,459804,2.0,False,Pantry Staples,1,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+123090263,2017-07-24,1,655749,4.0,False,Pantry Staples,1,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+123090336,2017-07-24,1,759694,6.0,False,Pantry Staples,1,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+123090922,2017-07-24,1,1313223,5.0,False,BREAD/BAKERY,1,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+123090979,2017-07-24,1,1354390,2.0,False,Pantry Staples,1,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+123091037,2017-07-24,1,1441514,1.0,False,Pantry Staples,1,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+123091210,2017-07-24,1,1471460,3.0,False,DAIRY,1,2128,1,Borden Whole Milk Gallon,5.1,6.78
+123091216,2017-07-24,1,1472479,1.0,False,PET SUPPLIES,1,6517,0,Meow Mix Original Choice Dry Cat Food 3.15 lb,6.3,8.35
+123091349,2017-07-24,1,1686685,7.0,False,PRODUCE,1,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123091646,2017-07-24,1,2010456,5.0,False,Pantry Staples,1,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+123091765,2017-07-24,1,2048246,1.0,False,Pantry Staples,1,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+123194986,2017-07-25,1,108952,2.0,False,CLEANING,1,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+123195234,2017-07-25,1,402175,1.0,False,Pantry Staples,1,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+123195278,2017-07-25,1,459804,1.0,False,Pantry Staples,1,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+123195433,2017-07-25,1,655749,4.0,False,Pantry Staples,1,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+123195493,2017-07-25,1,759694,5.0,False,Pantry Staples,1,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+123196088,2017-07-25,1,1313223,11.0,False,BREAD/BAKERY,1,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+123196139,2017-07-25,1,1354383,5.0,False,Pantry Staples,1,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+123196143,2017-07-25,1,1354390,3.0,False,Pantry Staples,1,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+123196380,2017-07-25,1,1471460,2.0,False,DAIRY,1,2128,1,Borden Whole Milk Gallon,5.1,6.78
+123196520,2017-07-25,1,1686685,4.0,False,PRODUCE,1,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123196803,2017-07-25,1,2010456,3.0,False,Pantry Staples,1,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+123196916,2017-07-25,1,2048246,1.0,False,Pantry Staples,1,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+123296187,2017-07-26,1,108952,3.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+123296488,2017-07-26,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+123296648,2017-07-26,1,655749,3.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+123296717,2017-07-26,1,759694,8.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+123297116,2017-07-26,1,1132005,4.0,False,BEVERAGES,0,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+123297315,2017-07-26,1,1313223,8.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+123297362,2017-07-26,1,1349808,4.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+123297368,2017-07-26,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+123297374,2017-07-26,1,1354390,3.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+123297439,2017-07-26,1,1441514,1.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+123297607,2017-07-26,1,1471460,9.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+123297750,2017-07-26,1,1686685,5.0,True,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123298030,2017-07-26,1,2010456,2.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+123396386,2017-07-27,1,108952,1.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+123396641,2017-07-27,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+123396682,2017-07-27,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+123396829,2017-07-27,1,655749,4.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+123396891,2017-07-27,1,759694,5.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+123397455,2017-07-27,1,1313223,6.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+123397494,2017-07-27,1,1349808,3.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+123397507,2017-07-27,1,1354390,2.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+123397567,2017-07-27,1,1441514,1.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+123397740,2017-07-27,1,1471460,4.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+123397869,2017-07-27,1,1686685,5.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123398136,2017-07-27,1,2010456,2.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+123493822,2017-07-28,1,108952,3.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+123494090,2017-07-28,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+123494127,2017-07-28,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+123494284,2017-07-28,1,655749,1.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+123494352,2017-07-28,1,759694,2.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+123494759,2017-07-28,1,1132005,7.0,False,BEVERAGES,0,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+123494960,2017-07-28,1,1313223,5.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+123495007,2017-07-28,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+123495012,2017-07-28,1,1354390,3.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+123495078,2017-07-28,1,1441514,1.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+123495251,2017-07-28,1,1471460,7.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+123495392,2017-07-28,1,1686685,10.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123495674,2017-07-28,1,2010456,2.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+123495794,2017-07-28,1,2048246,4.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+123596892,2017-07-29,1,108952,2.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+123597197,2017-07-29,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+123597418,2017-07-29,1,759694,4.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+123597811,2017-07-29,1,1132005,1.0,False,BEVERAGES,0,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+123598002,2017-07-29,1,1313223,2.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+123598052,2017-07-29,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+123598272,2017-07-29,1,1471460,6.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+123598277,2017-07-29,1,1472479,1.0,False,PET SUPPLIES,0,6517,0,Meow Mix Original Choice Dry Cat Food 3.15 lb,6.3,8.35
+123598407,2017-07-29,1,1686685,8.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123598698,2017-07-29,1,2010456,1.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+123708386,2017-07-30,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+123708568,2017-07-30,1,759694,1.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+123708831,2017-07-30,1,1132005,1.0,False,BEVERAGES,0,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+123708971,2017-07-30,1,1313223,4.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+123708993,2017-07-30,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+123708999,2017-07-30,1,1354390,2.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+123709045,2017-07-30,1,1441514,3.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+123709164,2017-07-30,1,1471460,2.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+123709168,2017-07-30,1,1472479,2.0,False,PET SUPPLIES,0,6517,0,Meow Mix Original Choice Dry Cat Food 3.15 lb,6.3,8.35
+123709277,2017-07-30,1,1686685,1.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123819958,2017-07-31,1,402175,2.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+123820011,2017-07-31,1,459804,3.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+123820164,2017-07-31,1,655749,4.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+123820238,2017-07-31,1,759694,2.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+123820848,2017-07-31,1,1313223,10.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+123820896,2017-07-31,1,1349808,2.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+123820903,2017-07-31,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+123820908,2017-07-31,1,1354390,1.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+123820978,2017-07-31,1,1441514,2.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+123821163,2017-07-31,1,1471460,6.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+123821298,2017-07-31,1,1686685,1.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123926355,2017-08-01,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+123926395,2017-08-01,1,459804,2.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+123926624,2017-08-01,1,759694,8.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+123927224,2017-08-01,1,1313223,3.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+123927274,2017-08-01,1,1349808,2.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+123927286,2017-08-01,1,1354390,3.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+123927357,2017-08-01,1,1441514,2.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+123927538,2017-08-01,1,1471460,7.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+123927679,2017-08-01,1,1686685,3.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+123928087,2017-08-01,1,2048246,2.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+124035751,2017-08-02,1,402175,6.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+124035802,2017-08-02,1,459804,2.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+124035959,2017-08-02,1,655749,4.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+124036025,2017-08-02,1,759694,2.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+124036420,2017-08-02,1,1132005,1.0,False,BEVERAGES,0,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+124036627,2017-08-02,1,1313223,9.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124036671,2017-08-02,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+124036677,2017-08-02,1,1354383,3.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+124036683,2017-08-02,1,1354390,6.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124036754,2017-08-02,1,1441514,6.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+124036951,2017-08-02,1,1471460,8.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+124037097,2017-08-02,1,1686685,11.0,True,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124037397,2017-08-02,1,2010456,3.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+124143124,2017-08-03,1,402175,2.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+124143362,2017-08-03,1,759694,7.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+124143907,2017-08-03,1,1313223,10.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124143954,2017-08-03,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+124143960,2017-08-03,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+124143966,2017-08-03,1,1354390,3.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124144028,2017-08-03,1,1441514,2.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+124144197,2017-08-03,1,1471460,5.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+124144200,2017-08-03,1,1472479,1.0,False,PET SUPPLIES,0,6517,0,Meow Mix Original Choice Dry Cat Food 3.15 lb,6.3,8.35
+124144332,2017-08-03,1,1686685,1.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124144596,2017-08-03,1,2010456,3.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+124144704,2017-08-03,1,2048246,2.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+124245375,2017-08-04,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+124245585,2017-08-04,1,655749,2.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+124245646,2017-08-04,1,759694,4.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+124246228,2017-08-04,1,1313223,7.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124246279,2017-08-04,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+124246285,2017-08-04,1,1354390,1.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124246353,2017-08-04,1,1441514,4.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+124246534,2017-08-04,1,1471460,7.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+124246689,2017-08-04,1,1686685,5.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124349298,2017-08-05,1,108952,2.0,False,CLEANING,1,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+124349752,2017-08-05,1,655749,5.0,False,Pantry Staples,1,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+124349814,2017-08-05,1,759694,3.0,False,Pantry Staples,1,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+124350195,2017-08-05,1,1132005,3.0,False,BEVERAGES,1,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+124350392,2017-08-05,1,1313223,8.0,False,BREAD/BAKERY,1,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124350437,2017-08-05,1,1349808,3.0,False,Pantry Staples,1,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+124350443,2017-08-05,1,1354383,2.0,False,Pantry Staples,1,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+124350446,2017-08-05,1,1354390,3.0,False,Pantry Staples,1,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124350661,2017-08-05,1,1471460,6.0,False,DAIRY,1,2128,1,Borden Whole Milk Gallon,5.1,6.78
+124350800,2017-08-05,1,1686685,5.0,False,PRODUCE,1,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124460177,2017-08-06,1,108952,2.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+124460398,2017-08-06,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+124460540,2017-08-06,1,759694,1.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+124460967,2017-08-06,1,1313223,1.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124461006,2017-08-06,1,1354390,1.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124461050,2017-08-06,1,1441514,5.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+124461173,2017-08-06,1,1472479,2.0,False,PET SUPPLIES,0,6517,0,Meow Mix Original Choice Dry Cat Food 3.15 lb,6.3,8.35
+124461279,2017-08-06,1,1686685,2.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124461482,2017-08-06,1,2010456,2.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+124571025,2017-08-07,1,108952,1.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+124571277,2017-08-07,1,402175,5.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+124571467,2017-08-07,1,655749,2.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+124571540,2017-08-07,1,759694,1.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+124571933,2017-08-07,1,1132005,2.0,False,BEVERAGES,0,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+124572142,2017-08-07,1,1313223,10.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124572189,2017-08-07,1,1349808,2.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+124572197,2017-08-07,1,1354383,2.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+124572203,2017-08-07,1,1354390,1.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124572438,2017-08-07,1,1471460,2.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+124572578,2017-08-07,1,1686685,3.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124572965,2017-08-07,1,2048246,1.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+124674895,2017-08-08,1,108952,1.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+124675159,2017-08-08,1,402175,2.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+124675203,2017-08-08,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+124675354,2017-08-08,1,655749,3.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+124675423,2017-08-08,1,759694,2.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+124675815,2017-08-08,1,1132005,1.0,False,BEVERAGES,0,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+124676010,2017-08-08,1,1313223,9.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124676057,2017-08-08,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+124676066,2017-08-08,1,1354390,1.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124676292,2017-08-08,1,1471460,2.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+124676432,2017-08-08,1,1686685,3.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124676810,2017-08-08,1,2048246,20.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+124776053,2017-08-09,1,108952,1.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+124776313,2017-08-09,1,402175,2.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+124776577,2017-08-09,1,759694,4.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+124777170,2017-08-09,1,1313223,7.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124777219,2017-08-09,1,1349808,3.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+124777227,2017-08-09,1,1354390,2.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124777286,2017-08-09,1,1441514,3.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+124777593,2017-08-09,1,1686685,2.0,True,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124877047,2017-08-10,1,108952,4.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+124877312,2017-08-10,1,402175,2.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+124877526,2017-08-10,1,655749,3.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+124878170,2017-08-10,1,1313223,16.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124878228,2017-08-10,1,1354390,12.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124878298,2017-08-10,1,1441514,2.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+124878477,2017-08-10,1,1471460,4.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+124878622,2017-08-10,1,1686685,4.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124879010,2017-08-10,1,2048246,4.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+124975785,2017-08-11,1,402175,3.0,False,Pantry Staples,1,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+124975821,2017-08-11,1,459804,1.0,False,Pantry Staples,1,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+124975948,2017-08-11,1,655749,1.0,False,Pantry Staples,1,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+124975994,2017-08-11,1,759694,1.0,False,Pantry Staples,1,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+124976386,2017-08-11,1,1313223,1.0,False,BREAD/BAKERY,1,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+124976416,2017-08-11,1,1349808,3.0,False,Pantry Staples,1,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+124976423,2017-08-11,1,1354390,1.0,False,Pantry Staples,1,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+124976590,2017-08-11,1,1471460,6.0,False,DAIRY,1,2128,1,Borden Whole Milk Gallon,5.1,6.78
+124976709,2017-08-11,1,1686685,3.0,False,PRODUCE,1,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+124976890,2017-08-11,1,2010456,1.0,False,Pantry Staples,1,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+125080193,2017-08-12,1,108952,1.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+125080409,2017-08-12,1,402175,4.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+125080649,2017-08-12,1,759694,3.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+125081182,2017-08-12,1,1313223,1.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+125081230,2017-08-12,1,1349808,1.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+125081237,2017-08-12,1,1354390,1.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+125081300,2017-08-12,1,1441514,1.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+125081440,2017-08-12,1,1471460,4.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+125081563,2017-08-12,1,1686685,5.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+125081805,2017-08-12,1,2010456,2.0,False,Pantry Staples,0,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86
+125081915,2017-08-12,1,2048246,1.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+125185384,2017-08-13,1,108952,1.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+125185529,2017-08-13,1,402175,1.0,False,Pantry Staples,0,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+125185691,2017-08-13,1,759694,3.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+125185955,2017-08-13,1,1132005,1.0,False,BEVERAGES,0,1132,0,Pure Leaf Iced Tea Lemon 12 x 16.9 fl oz,7.7,10.34
+125186100,2017-08-13,1,1313223,4.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+125186135,2017-08-13,1,1354383,1.0,False,Pantry Staples,0,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+125186176,2017-08-13,1,1441514,1.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+125186271,2017-08-13,1,1471460,1.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+125186379,2017-08-13,1,1686685,1.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+125186641,2017-08-13,1,2048246,1.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+125291492,2017-08-14,1,108952,1.0,False,CLEANING,0,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+125291790,2017-08-14,1,459804,1.0,False,Pantry Staples,0,1086,0,Morton Iodized Salt 26 oz,2.2,3.11
+125291943,2017-08-14,1,655749,3.0,False,Pantry Staples,0,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+125292000,2017-08-14,1,759694,5.0,False,Pantry Staples,0,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+125292598,2017-08-14,1,1313223,1.0,False,BREAD/BAKERY,0,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+125292650,2017-08-14,1,1349808,3.0,False,Pantry Staples,0,1030,0,Prego Traditional Italian Sauce 24 oz Jar,3.9,5.28
+125292661,2017-08-14,1,1354390,2.0,False,Pantry Staples,0,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+125292728,2017-08-14,1,1441514,1.0,False,Pantry Staples,0,1008,0,Carolina Long Grain White Rice 5 lb,5.1,6.99
+125292899,2017-08-14,1,1471460,2.0,False,DAIRY,0,2128,1,Borden Whole Milk Gallon,5.1,6.78
+125293034,2017-08-14,1,1686685,3.0,False,PRODUCE,0,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+125293435,2017-08-14,1,2048246,1.0,False,Pantry Staples,0,1016,0,Quaker Old Fashioned Oats 42 oz Canister,4.0,5.25
+125394240,2017-08-15,1,108952,6.0,False,CLEANING,1,3024,0,Lysol All Purpose Cleaner Lemon Breeze 32 fl oz,6.8,8.86
+125394488,2017-08-15,1,402175,2.0,False,Pantry Staples,1,1096,0,Mahatma Extra Long Grain Enriched Rice 5 lb,6.6,8.84
+125394693,2017-08-15,1,655749,1.0,False,Pantry Staples,1,1096,0,Barilla Spaghetti Pasta 2 lb,5.9,7.85
+125394757,2017-08-15,1,759694,3.0,False,Pantry Staples,1,1070,0,Del Monte Whole Kernel Corn 15.25 oz 6 Pack,6.2,8.29
+125395319,2017-08-15,1,1313223,2.0,False,BREAD/BAKERY,1,2714,1,Pepperidge Farm Soft Dinner Rolls 12 Count,1.9,2.76
+125395367,2017-08-15,1,1354383,2.0,False,Pantry Staples,1,1042,0,Bertolli Extra Virgin Olive Oil 16.9 fl oz,5.2,6.95
+125395369,2017-08-15,1,1354390,2.0,False,Pantry Staples,1,1042,0,Domino Granulated Sugar 4 lb,3.2,4.41
+125395609,2017-08-15,1,1471460,3.0,False,DAIRY,1,2128,1,Borden Whole Milk Gallon,5.1,6.78
+125395747,2017-08-15,1,1686685,7.0,False,PRODUCE,1,2034,1,"Dole Bananas, 2 lb Bunch",2.8,3.96
+125396024,2017-08-15,1,2010456,1.0,False,Pantry Staples,1,1052,0,Uncle Ben’s Jasmine Rice 5 lb,6.6,8.86

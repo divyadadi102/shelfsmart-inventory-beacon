@@ -1,268 +1,317 @@
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { useState, useEffect, useRef } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Navigation from "@/components/Navigation";
 import { 
-  DollarSign, 
-  Package, 
-  TrendingUp, 
-  ShoppingCart,
-  AlertCircle,
-  Calendar,
-  Target
+  Send, 
+  Bot,
+  User,
+  Loader2,
+  MessageSquare
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
-interface DailySummary {
-  totalItemsSold: number;
-  totalRevenue: number;
-  totalProfit: number;
-  categorySales: { category: string; count: number; revenue: number }[];
-}
-
-interface OrderRecommendation {
-  productName: string;
-  currentStock: number;
-  recommendedOrder: number;
-  category: string;
-  priority: 'high' | 'medium' | 'low';
+interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
 }
 
 const Summary = () => {
-  const [dailySummary, setDailySummary] = useState<DailySummary>({
-    totalItemsSold: 0,
-    totalRevenue: 0,
-    totalProfit: 0,
-    categorySales: []
-  });
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: '1',
+      role: 'assistant',
+      content: "Hello! I'm your AI business assistant. Ask me anything about your inventory, sales, forecasts, or business insights. For example:\n\n• What products should I order this week?\n• Give me today's sales summary\n• Which category is performing best?\n• Show me low-stock alerts",
+      timestamp: new Date()
+    }
+  ]);
+  const [inputMessage, setInputMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
-  const [orderRecommendations, setOrderRecommendations] = useState<OrderRecommendation[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
-    fetchTodaySummary();
-    fetchOrderRecommendations();
-  }, []);
+    scrollToBottom();
+  }, [messages]);
 
-  const fetchTodaySummary = async () => {
+  const handleSendMessage = async () => {
+    if (!inputMessage.trim() || isLoading) return;
+
+    const userMessage: ChatMessage = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: inputMessage,
+      timestamp: new Date()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInputMessage("");
+    setIsLoading(true);
+
     try {
-      // Mock data for today's summary - replace with actual API call
-      const mockSummary: DailySummary = {
-        totalItemsSold: 147,
-        totalRevenue: 3420.50,
-        totalProfit: 1254.80,
-        categorySales: [
-          { category: "Electronics", count: 45, revenue: 1250.00 },
-          { category: "Clothing", count: 32, revenue: 890.30 },
-          { category: "Food & Beverages", count: 28, revenue: 560.40 },
-          { category: "Books", count: 24, revenue: 380.20 },
-          { category: "Home & Garden", count: 18, revenue: 339.60 }
-        ]
+      // Mock AI response based on common business queries
+      const response = await generateAIResponse(inputMessage);
+      
+      const assistantMessage: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: response,
+        timestamp: new Date()
       };
-      setDailySummary(mockSummary);
-    } catch (error) {
-      console.error("Failed to fetch daily summary:", error);
-    }
-  };
 
-  const fetchOrderRecommendations = async () => {
-    try {
-      // Mock data for order recommendations - replace with actual API call
-      const mockRecommendations: OrderRecommendation[] = [
-        { productName: "iPhone Cases", currentStock: 12, recommendedOrder: 50, category: "Electronics", priority: 'high' },
-        { productName: "Coffee Beans", currentStock: 8, recommendedOrder: 100, category: "Food & Beverages", priority: 'high' },
-        { productName: "Winter Jackets", currentStock: 15, recommendedOrder: 30, category: "Clothing", priority: 'medium' },
-        { productName: "Notebooks", currentStock: 25, recommendedOrder: 75, category: "Books", priority: 'medium' },
-        { productName: "Garden Tools", currentStock: 6, recommendedOrder: 20, category: "Home & Garden", priority: 'high' },
-        { productName: "Wireless Headphones", currentStock: 18, recommendedOrder: 40, category: "Electronics", priority: 'low' }
-      ];
-      setOrderRecommendations(mockRecommendations);
-      setIsLoading(false);
+      setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
-      console.error("Failed to fetch order recommendations:", error);
+      toast({
+        title: "Error",
+        description: "Failed to get AI response. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
       setIsLoading(false);
     }
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high': return 'bg-red-100 text-red-800 border-red-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+  const generateAIResponse = async (question: string): Promise<string> => {
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const lowerQuestion = question.toLowerCase();
+
+    // Mock responses based on keywords - replace with actual AI API call
+    if (lowerQuestion.includes('today') && lowerQuestion.includes('sales')) {
+      return `**Today's Sales Summary:**
+
+📊 **Total Items Sold:** 147 units
+💰 **Revenue:** $3,420.50
+📈 **Profit:** $1,254.80
+
+**Top Categories:**
+• Electronics: 45 items, $1,250.00
+• Clothing: 32 items, $890.30
+• Food & Beverages: 28 items, $560.40
+
+**Performance:** +12% increase compared to yesterday`;
     }
+
+    if (lowerQuestion.includes('order') && (lowerQuestion.includes('week') || lowerQuestion.includes('reorder'))) {
+      return `**Products to Order This Week:**
+
+🔴 **High Priority:**
+• Coffee Beans - Current: 8 units → Order: 100 units
+• iPhone Cases - Current: 12 units → Order: 50 units  
+• Garden Tools - Current: 6 units → Order: 20 units
+
+🟡 **Medium Priority:**
+• Winter Jackets - Current: 15 units → Order: 30 units
+• Notebooks - Current: 25 units → Order: 75 units
+
+**Total Estimated Cost:** $2,840
+**Expected Delivery:** 3-5 business days`;
+    }
+
+    if (lowerQuestion.includes('category') && lowerQuestion.includes('best')) {
+      return `**Best Performing Categories:**
+
+🥇 **Electronics** - $1,250 revenue (36.5% of total)
+• 45 items sold today
+• 15% profit margin increase
+• Top product: iPhone Cases
+
+🥈 **Clothing** - $890 revenue (26% of total)  
+• 32 items sold today
+• Seasonal boost from winter items
+• Top product: Winter Jackets
+
+🥉 **Food & Beverages** - $560 revenue (16.4% of total)
+• 28 items sold today
+• Consistent daily performance
+• Top product: Coffee Beans`;
+    }
+
+    if (lowerQuestion.includes('low stock') || lowerQuestion.includes('alert')) {
+      return `**Critical Stock Alerts:**
+
+⚠️ **Immediate Action Required:**
+• Coffee Beans: 8 units left (2 days remaining)
+• Garden Tools: 6 units left (1.5 days remaining)
+
+🟡 **Monitor Closely:**
+• iPhone Cases: 12 units left (3 days remaining)
+• Winter Jackets: 15 units left (4 days remaining)
+
+**Recommendation:** Place orders for critical items within 24 hours to avoid stockouts.`;
+    }
+
+    if (lowerQuestion.includes('profit') || lowerQuestion.includes('margin')) {
+      return `**Profit Analysis:**
+
+💰 **Today's Profit:** $1,254.80 (36.7% margin)
+📈 **Trend:** +15% vs yesterday
+
+**Profit by Category:**
+• Electronics: $458.25 (36.7% margin)
+• Clothing: $267.09 (30% margin)  
+• Food & Beverages: $224.16 (40% margin)
+• Books: $114.06 (30% margin)
+• Home & Garden: $101.88 (30% margin)
+
+**Best Margin:** Food & Beverages at 40%
+**Improvement Opportunity:** Electronics volume with better sourcing`;
+    }
+
+    if (lowerQuestion.includes('forecast') || lowerQuestion.includes('predict')) {
+      return `**AI Forecast for Next 7 Days:**
+
+📈 **Expected Sales:** $28,500 (+8% vs last week)
+📦 **Units to Sell:** 1,030 items
+
+**Daily Breakdown:**
+• Mon-Wed: High demand (Electronics surge)
+• Thu-Fri: Moderate demand  
+• Weekend: Focus on Clothing & Home items
+
+**Weather Impact:** Rain forecasted - expect 20% boost in indoor products
+
+**Recommendation:** Increase Coffee Beans and Electronics inventory by 15%`;
+    }
+
+    // Default response for unrecognized queries
+    return `I can help you with business insights! Here are some things you can ask me:
+
+📊 **Sales & Performance:**
+• "Give me today's sales summary"
+• "Which category is performing best?"
+• "Show me profit margins"
+
+📦 **Inventory & Orders:**
+• "What products should I order this week?"
+• "Show me low stock alerts"
+• "When will I run out of [product]?"
+
+🔮 **Forecasting:**
+• "Predict next week's sales"
+• "What's the demand forecast?"
+
+Try asking a specific question about your business data!`;
   };
 
-  const today = new Date().toLocaleDateString('en-US', { 
-    weekday: 'long', 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Navigation />
-        <div className="container mx-auto px-4 py-8">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
-            <div className="grid md:grid-cols-4 gap-6 mb-8">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="h-32 bg-gray-200 rounded-lg"></div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Business Summary</h1>
-          <div className="flex items-center text-gray-600">
-            <Calendar className="w-4 h-4 mr-2" />
-            <span>{today}</span>
-          </div>
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">AI Business Assistant</h1>
+          <p className="text-gray-600">Ask me anything about your business data, inventory, and insights</p>
         </div>
 
-        {/* Today's Summary Cards */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-white shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Items Sold Today</CardTitle>
-              <ShoppingCart className="h-4 w-4 text-blue-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">{dailySummary.totalItemsSold}</div>
-              <p className="text-xs text-green-600 mt-1">+12% from yesterday</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Revenue Today</CardTitle>
-              <DollarSign className="h-4 w-4 text-green-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">${dailySummary.totalRevenue.toLocaleString()}</div>
-              <p className="text-xs text-green-600 mt-1">+8% from yesterday</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Profit Today</CardTitle>
-              <TrendingUp className="h-4 w-4 text-purple-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">${dailySummary.totalProfit.toLocaleString()}</div>
-              <p className="text-xs text-green-600 mt-1">+15% from yesterday</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">Categories</CardTitle>
-              <Package className="h-4 w-4 text-orange-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">{dailySummary.categorySales.length}</div>
-              <p className="text-xs text-gray-600 mt-1">Active categories</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-8">
-          {/* Sales by Category */}
-          <Card className="bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Target className="w-5 h-5 mr-2 text-blue-600" />
-                Sales by Category Today
-              </CardTitle>
-              <CardDescription>
-                Breakdown of today's sales performance by product category
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {dailySummary.categorySales.map((category, index) => (
-                  <div key={index} className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-gray-900">{category.category}</span>
-                        <span className="text-sm text-gray-600">{category.count} items</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="w-full bg-gray-200 rounded-full h-2 mr-4">
-                          <div 
-                            className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full"
-                            style={{ width: `${(category.revenue / dailySummary.totalRevenue) * 100}%` }}
-                          ></div>
-                        </div>
-                        <span className="text-sm font-semibold text-gray-900">
-                          ${category.revenue.toLocaleString()}
-                        </span>
-                      </div>
+        {/* Chat Interface */}
+        <Card className="bg-white shadow-sm h-[600px] flex flex-col">
+          <CardHeader className="border-b">
+            <CardTitle className="flex items-center">
+              <MessageSquare className="w-5 h-5 mr-2 text-blue-600" />
+              Chat with AI Assistant
+            </CardTitle>
+          </CardHeader>
+          
+          {/* Messages Area */}
+          <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div className={`flex max-w-[80%] ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                  <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                    message.role === 'user' 
+                      ? 'bg-blue-600 ml-2' 
+                      : 'bg-purple-600 mr-2'
+                  }`}>
+                    {message.role === 'user' ? (
+                      <User className="w-4 h-4 text-white" />
+                    ) : (
+                      <Bot className="w-4 h-4 text-white" />
+                    )}
+                  </div>
+                  <div
+                    className={`rounded-lg px-4 py-2 ${
+                      message.role === 'user'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-100 text-gray-900'
+                    }`}
+                  >
+                    <div className="whitespace-pre-wrap text-sm">{message.content}</div>
+                    <div className={`text-xs mt-1 ${
+                      message.role === 'user' ? 'text-blue-100' : 'text-gray-500'
+                    }`}>
+                      {message.timestamp.toLocaleTimeString()}
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Weekly Order Recommendations */}
-          <Card className="bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <AlertCircle className="w-5 h-5 mr-2 text-orange-600" />
-                Products to Order This Week
-              </CardTitle>
-              <CardDescription>
-                AI-recommended products and quantities based on current stock and demand forecasts
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {orderRecommendations.map((item, index) => (
-                  <div key={index} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-gray-900">{item.productName}</h4>
-                      <Badge className={`text-xs ${getPriorityColor(item.priority)}`}>
-                        {item.priority} priority
-                      </Badge>
-                    </div>
-                    <div className="grid grid-cols-3 gap-4 text-sm">
-                      <div>
-                        <span className="text-gray-600">Current Stock:</span>
-                        <span className="font-medium ml-2">{item.currentStock}</span>
-                      </div>
-                      <div>
-                        <span className="text-gray-600">Recommended:</span>
-                        <span className="font-medium ml-2 text-blue-600">{item.recommendedOrder}</span>
-                      </div>
-                      <div>
-                        <span className="text-gray-600">Category:</span>
-                        <span className="font-medium ml-2">{item.category}</span>
-                      </div>
+            ))}
+            
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="flex">
+                  <div className="bg-purple-600 w-8 h-8 rounded-full flex items-center justify-center mr-2">
+                    <Bot className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="bg-gray-100 rounded-lg px-4 py-2">
+                    <div className="flex items-center space-x-2">
+                      <Loader2 className="w-4 h-4 animate-spin text-gray-600" />
+                      <span className="text-sm text-gray-600">AI is thinking...</span>
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
-              <Separator className="my-4" />
-              <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                Generate Purchase Order
+            )}
+            <div ref={messagesEndRef} />
+          </CardContent>
+
+          {/* Input Area */}
+          <div className="border-t p-4">
+            <div className="flex space-x-2">
+              <Input
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Ask me about your business... (e.g., 'What products should I order this week?')"
+                className="flex-1"
+                disabled={isLoading}
+              />
+              <Button
+                onClick={handleSendMessage}
+                disabled={!inputMessage.trim() || isLoading}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Send className="w-4 h-4" />
+                )}
               </Button>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Press Enter to send • Shift+Enter for new line
+            </p>
+          </div>
+        </Card>
       </div>
     </div>
   );

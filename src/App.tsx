@@ -13,6 +13,7 @@ import Alerts from "./pages/Alerts";
 import NotFound from "./pages/NotFound";
 import PastSalesPage from "./pages/PastSalesPage";
 import Products from "./pages/products";
+import Summary from "./pages/Summary";
 
 
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/summary" element={<Summary />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/alerts" element={<Alerts />} />
